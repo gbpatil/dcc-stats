@@ -77,7 +77,7 @@
 }
 
 .table th.highlightColumn {
-  color: var(--color-accent-primary);
+  color: var(--color-accent-secondary); /* Yellow/Gold header */
 }
 
 .table td {
@@ -145,7 +145,7 @@
 
 .highlightColumn {
   font-weight: var(--font-weight-bold);
-  color: var(--color-accent-primary) !important;
+  color: var(--color-accent-secondary) !important; /* Yellow/Gold for visibility */
 }
 
 /* State containers */

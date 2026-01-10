@@ -55,14 +55,53 @@ const COLUMN_LABELS: Record<string, { label: string; title?: string }> = {
   bowl_avg: { label: 'Bowl Avg', title: 'Bowling Average' },
 };
 
-// Columns that should be highlighted
-const HIGHLIGHT_COLUMNS = ['runs', 'wkts', 'avg', 'total', 'score', 'points', 'catches'];
+// Columns that should be highlighted (important stats)
+const HIGHLIGHT_COLUMNS = ['runs', 'wkts', 'avg', 'total', 'score', 'points', 'catches', 'hs', 'bb', 'sr', 'econ'];
 
 // Columns that contain player names
 const NAME_COLUMNS = ['name', 'bat1', 'bat2', 'player'];
 
+// Priority columns that should appear first (in order)
+const PRIORITY_ORDER = ['no', 'name', 'player', 'bat1', 'bat2'];
+
+// Order for highlighted columns (most important first, HS after Runs and Avg)
+const HIGHLIGHT_ORDER = [
+  'runs',      // Batting: Total runs first
+  'score',     // Individual score
+  'total',     // Total
+  'avg',       // Average
+  'hs',        // Highest score (after runs and avg)
+  'sr',        // Strike rate
+  'wkts',      // Bowling: Wickets
+  'bb',        // Best bowling (after wkts)
+  'econ',      // Economy rate
+  'catches',   // Fielding
+  'points',    // Points
+];
+
 /**
- * Auto-detect columns from data
+ * Get column width based on key type
+ */
+function getColumnWidth(key: string): string {
+  if (key === 'no') return '50px';
+  if (key === 'name' || key === 'player') return '160px';
+  if (key === 'bat1' || key === 'bat2') return '150px';
+  if (key === 'last_team' || key === 'team') return '130px';
+  if (key === 'opposition') return '160px';
+  if (key === 'venue') return '150px';
+  if (key === 'date') return '100px';
+  if (key === 'season') return '80px';
+  if (['mts', 'inns', 'nos', '4s', '6s', '100s', '50s', '0s', '5w', '4w', 'wkt'].includes(key)) return '55px';
+  if (['avg', 'sr', 'econ', 'bat_avg', 'bowl_avg'].includes(key)) return '70px';
+  if (['runs', 'wkts', 'balls', 'overs', 'catches', 'stumpings', 'runouts'].includes(key)) return '65px';
+  if (key === 'hs' || key === 'bb') return '75px';
+  if (key === 'score' || key === 'total' || key === 'points') return '80px';
+  return '70px';
+}
+
+/**
+ * Auto-detect and reorder columns from data
+ * Order: Rank -> Name columns -> Highlighted columns -> Other columns
  */
 function detectColumns(data: StatsRow[]): ColumnConfig[] {
   if (!data || data.length === 0) return [];
@@ -70,34 +109,53 @@ function detectColumns(data: StatsRow[]): ColumnConfig[] {
   const firstRow = data[0];
   const keys = Object.keys(firstRow);
   
-  return keys.map(key => {
+  // Create column configs
+  const allColumns = keys.map(key => {
     const labelInfo = COLUMN_LABELS[key] || { label: formatColumnKey(key) };
     const isHighlight = HIGHLIGHT_COLUMNS.includes(key);
-    
-    // Determine minimum width based on key type - columns will expand as needed
-    let width = '70px';
-    if (key === 'no') width = '50px';
-    else if (key === 'name' || key === 'player') width = '160px';
-    else if (key === 'bat1' || key === 'bat2') width = '150px';
-    else if (key === 'last_team' || key === 'team') width = '130px';
-    else if (key === 'opposition') width = '160px';
-    else if (key === 'venue') width = '150px';
-    else if (key === 'date') width = '100px';
-    else if (key === 'season') width = '80px';
-    else if (['mts', 'inns', 'nos', '4s', '6s', '100s', '50s', '0s', '5w', '4w', 'wkt'].includes(key)) width = '55px';
-    else if (['avg', 'sr', 'econ', 'bat_avg', 'bowl_avg'].includes(key)) width = '70px';
-    else if (['runs', 'wkts', 'balls', 'overs', 'catches', 'stumpings', 'runouts'].includes(key)) width = '65px';
-    else if (key === 'hs' || key === 'bb') width = '75px';
-    else if (key === 'score' || key === 'total' || key === 'points') width = '80px';
     
     return {
       key,
       label: labelInfo.label,
       title: labelInfo.title,
-      width,
+      width: getColumnWidth(key),
       highlight: isHighlight,
     };
   });
+
+  // Separate columns into groups
+  const priorityColumns: ColumnConfig[] = [];
+  const highlightColumns: ColumnConfig[] = [];
+  const otherColumns: ColumnConfig[] = [];
+
+  // Sort columns into groups
+  allColumns.forEach(col => {
+    if (PRIORITY_ORDER.includes(col.key)) {
+      priorityColumns.push(col);
+    } else if (col.highlight) {
+      highlightColumns.push(col);
+    } else {
+      otherColumns.push(col);
+    }
+  });
+
+  // Sort priority columns by their defined order
+  priorityColumns.sort((a, b) => {
+    return PRIORITY_ORDER.indexOf(a.key) - PRIORITY_ORDER.indexOf(b.key);
+  });
+
+  // Sort highlighted columns by their defined order (Runs before HS, etc.)
+  highlightColumns.sort((a, b) => {
+    const indexA = HIGHLIGHT_ORDER.indexOf(a.key);
+    const indexB = HIGHLIGHT_ORDER.indexOf(b.key);
+    // If not in order list, put at end
+    const orderA = indexA === -1 ? 999 : indexA;
+    const orderB = indexB === -1 ? 999 : indexB;
+    return orderA - orderB;
+  });
+
+  // Return reordered columns: Priority -> Highlighted -> Others
+  return [...priorityColumns, ...highlightColumns, ...otherColumns];
 }
 
 /**
