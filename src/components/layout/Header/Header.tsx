@@ -12,7 +12,11 @@ export function Header({ season, onSeasonChange, availableSeasons }: HeaderProps
       <div className={styles.content}>
         <div className={styles.logoSection}>
           <div className={styles.logo}>
-            <span className={styles.logoIcon}>🏏</span>
+            <img 
+              src={`${import.meta.env.BASE_URL}dcc-logo.png`}
+              alt="Dundalk Cricket Club Logo" 
+              className={styles.logoImage}
+            />
             <div className={styles.logoText}>
               <h1 className={styles.title}>Dundalk Cricket Club</h1>
               <span className={styles.subtitle}>Season Statistics</span>

@@ -74,14 +74,21 @@ function detectColumns(data: StatsRow[]): ColumnConfig[] {
     const labelInfo = COLUMN_LABELS[key] || { label: formatColumnKey(key) };
     const isHighlight = HIGHLIGHT_COLUMNS.includes(key);
     
-    // Determine width based on key type
-    let width = '80px';
-    if (key === 'no') width = '45px';
-    else if (key === 'name' || key === 'bat1' || key === 'bat2') width = 'auto';
-    else if (key === 'last_team' || key === 'team') width = '100px';
-    else if (key === 'opposition' || key === 'venue') width = '120px';
-    else if (['mts', 'inns', 'nos', '4s', '6s', '100s', '50s', '0s', '5w', '4w'].includes(key)) width = '45px';
-    else if (['avg', 'sr', 'econ'].includes(key)) width = '55px';
+    // Determine minimum width based on key type - columns will expand as needed
+    let width = '70px';
+    if (key === 'no') width = '50px';
+    else if (key === 'name' || key === 'player') width = '160px';
+    else if (key === 'bat1' || key === 'bat2') width = '150px';
+    else if (key === 'last_team' || key === 'team') width = '130px';
+    else if (key === 'opposition') width = '160px';
+    else if (key === 'venue') width = '150px';
+    else if (key === 'date') width = '100px';
+    else if (key === 'season') width = '80px';
+    else if (['mts', 'inns', 'nos', '4s', '6s', '100s', '50s', '0s', '5w', '4w', 'wkt'].includes(key)) width = '55px';
+    else if (['avg', 'sr', 'econ', 'bat_avg', 'bowl_avg'].includes(key)) width = '70px';
+    else if (['runs', 'wkts', 'balls', 'overs', 'catches', 'stumpings', 'runouts'].includes(key)) width = '65px';
+    else if (key === 'hs' || key === 'bb') width = '75px';
+    else if (key === 'score' || key === 'total' || key === 'points') width = '80px';
     
     return {
       key,
@@ -199,7 +206,7 @@ export function StatsTable({ data, report, loading, error }: StatsTableProps) {
               {columns.map((col) => (
                 <th
                   key={col.key}
-                  style={{ width: col.width }}
+                  style={{ minWidth: col.width }}
                   title={col.title || col.label}
                   className={col.highlight ? styles.highlightColumn : ''}
                 >

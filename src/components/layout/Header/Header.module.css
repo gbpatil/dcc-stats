@@ -27,19 +27,16 @@
   gap: var(--spacing-md);
 }
 
-.logoIcon {
-  font-size: 2.5rem;
-  filter: drop-shadow(0 0 10px var(--color-accent-glow));
-  animation: pulse 2s ease-in-out infinite;
+.logoImage {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.3));
+  transition: transform 0.3s ease;
 }
 
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
+.logoImage:hover {
+  transform: scale(1.05);
 }
 
 .logoText {
@@ -160,8 +157,9 @@
     font-size: 0.7rem;
   }
 
-  .logoIcon {
-    font-size: 2rem;
+  .logoImage {
+    width: 50px;
+    height: 50px;
   }
 
   .controls {
@@ -204,8 +202,9 @@
     letter-spacing: 0.05em;
   }
 
-  .logoIcon {
-    font-size: 1.75rem;
+  .logoImage {
+    width: 45px;
+    height: 45px;
   }
 
   .seasonLabel {
