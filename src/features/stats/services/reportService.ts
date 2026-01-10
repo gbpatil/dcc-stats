@@ -187,10 +187,20 @@ export async function fetchReportData<T = unknown>(url: string, season?: number)
     fetchUrl = url.replace(/season=\d+/, `season=${season}`);
   }
 
-  // Convert to relative URL for proxy
-  const relativeUrl = fetchUrl.replace('https://www2.cricketstatz.com', '');
+  // In development, use Vite proxy (relative URL)
+  // In production, use CORS proxy to bypass CORS restrictions
+  const isDev = import.meta.env.DEV;
   
-  const response = await fetch(relativeUrl);
+  let finalUrl: string;
+  if (isDev) {
+    // Use Vite proxy in development
+    finalUrl = fetchUrl.replace('https://www2.cricketstatz.com', '');
+  } else {
+    // Use CORS proxy in production (GitHub Pages)
+    finalUrl = `https://corsproxy.io/?${encodeURIComponent(fetchUrl)}`;
+  }
+  
+  const response = await fetch(finalUrl);
   
   if (!response.ok) {
     throw new Error(`Failed to fetch data: ${response.statusText}`);
