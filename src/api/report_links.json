@@ -1,0 +1,841 @@
+{
+  "count": 209,
+  "links": [
+    {
+      "title": "Top Run Aggregates",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=4&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Run Scores",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=6&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Batting Averages",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=3&club=4565&team=0&pool=&season=2025&grade=&newpage=&minruns=20&mininns=1"
+    },
+    {
+      "title": "Top Batting Strike Rates",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=64&club=4565&team=0&pool=&season=2025&grade=&newpage=&minruns=20&mininns=1"
+    },
+    {
+      "title": "Most Runs in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=29&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Partnerships by Wicket",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=49&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Wicket Takers",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=5&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Best Bowling in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=7&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Bowling Averages",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=8&club=4565&team=0&pool=&season=2025&grade=&newpage=&minovers=4"
+    },
+    {
+      "title": "Most Wickets in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=30&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Catches & Stumpings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=102&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Matches Played",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=21&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top All-Rounders",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=37&club=4565&team=0&pool=&season=2025&grade=&newpage=&minruns=20&minovers=4"
+    },
+    {
+      "title": "Top Run Aggregates By Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=247&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Batting Averages by Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=246&club=4565&team=0&pool=&season=2025&grade=&newpage=&minruns=20&mininns=1"
+    },
+    {
+      "title": "Top Wicket Aggregates by Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=249&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Bowling Averages by Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=248&club=4565&team=0&pool=&season=2025&grade=&newpage=&minovers=4"
+    },
+    {
+      "title": "Top Run Aggregates",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=4&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Run Scores",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=6&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Run Scores by Batting Position",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=252&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Batting Averages",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=3&club=4565&team=0&pool=&season=2025&grade=&newpage=&minruns=20&mininns=1"
+    },
+    {
+      "title": "Top Batting Average in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=145&club=4565&team=0&pool=&season=2025&grade=&newpage=&minruns=20&mininns=1"
+    },
+    {
+      "title": "Top Batting Strike Rates",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=64&club=4565&team=0&pool=&season=2025&grade=&newpage=&minruns=20&mininns=1"
+    },
+    {
+      "title": "Most Runs in a Match",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=254&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Boundaries",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=23&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Boundaries in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=171&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Boundary Contribution to Runs",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=227&club=4565&team=0&pool=&season=2025&grade=&newpage=&minruns=20&mininns=1"
+    },
+    {
+      "title": "Most Sixes",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=65&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Sixes in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=78&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Sixes in a Match",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=253&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Sixes in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=77&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Fours",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=131&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Fours in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=204&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Fours in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=205&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Ducks",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=32&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Ducks in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=76&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Ducks in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=87&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Ducks on Debut",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=139&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive Ducks",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=79&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive Scores Without A Duck",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=85&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Golden Ducks",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=86&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Diamond Ducks",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=228&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Duck Pairs",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=128&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most 90s",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=10&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most 40s",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=147&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Hundreds",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=44&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Hundreds in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=98&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive Hundreds",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=81&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Centurions",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=43&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "A Century in Each Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=134&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "A Century and Duck in the Same Match",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=225&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Innings without a Century",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=180&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive Scores without a Century",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=181&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Lowest Century Conversions",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=130&club=4565&team=0&pool=&season=2025&grade=&newpage=&minruns=20&mininns=1"
+    },
+    {
+      "title": "Most Fifties",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=54&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Fifties in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=97&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive Fifties",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=80&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Runs in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=29&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Run Scores as % of Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=110&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top All-Rounders",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=37&club=4565&team=0&pool=&season=2025&grade=&newpage=&minruns=20&minovers=4"
+    },
+    {
+      "title": "Opening Batting and Bowling in the Same Match",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=226&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Batting on Debut",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=51&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Balls Faced in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=68&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Balls Faced for a Duck",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=69&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Mins Batted in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=93&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Carrying the Bat",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=60&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top % of Innings Total",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=110&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive Runs Before Being Dismissed",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=207&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "5-Wicket Batting Collapses",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=71&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "6-Wicket Batting Collapses",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=216&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "7-Wicket Batting Collapses",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=217&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "8-Wicket Batting Collapses",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=218&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "9-Wicket Batting Collapses",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=219&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Participated in Run Outs (as NotOut partner)",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=202&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Highest Not Out Count",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=92&club=4565&team=0&pool=&season=2025&grade=&newpage=&howout=1"
+    },
+    {
+      "title": "Highest Bowled Count",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=92&club=4565&team=0&pool=&season=2025&grade=&newpage=&howout=2"
+    },
+    {
+      "title": "Highest Caught Count",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=92&club=4565&team=0&pool=&season=2025&grade=&newpage=&howout=3"
+    },
+    {
+      "title": "Highest C&B Count",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=92&club=4565&team=0&pool=&season=2025&grade=&newpage=&howout=4"
+    },
+    {
+      "title": "Highest LBW Count",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=92&club=4565&team=0&pool=&season=2025&grade=&newpage=&howout=6"
+    },
+    {
+      "title": "Highest Run Out Count",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=92&club=4565&team=0&pool=&season=2025&grade=&newpage=&howout=7"
+    },
+    {
+      "title": "Highest Stumped Count",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=92&club=4565&team=0&pool=&season=2025&grade=&newpage=&howout=8"
+    },
+    {
+      "title": "Top Innings per Fifty",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=223&club=4565&team=0&pool=&season=2025&grade=&newpage=&minruns=20&mininns=1"
+    },
+    {
+      "title": "Unusual Dismissals",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=91&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Batting Howout Frequency Chart",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=70&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Batting Rankings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=150&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "On This Day - Batting",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=256&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Partnerships",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=22&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Partnerships by Wicket",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=49&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Partnership Aggregates",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=88&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Century Partnerships by Pair",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=203&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "On This Day - Partnerships",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=258&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Wicket Takers",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=5&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Best Bowling in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=7&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Best Bowling in a Match",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=38&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Bowling Averages",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=8&club=4565&team=0&pool=&season=2025&grade=&newpage=&minovers=4"
+    },
+    {
+      "title": "Top Bowling Average in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=146&club=4565&team=0&pool=&season=2025&grade=&newpage=&minovers=4"
+    },
+    {
+      "title": "Top Economy Rates",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=9&club=4565&team=0&pool=&season=2025&grade=&newpage=&minovers=4"
+    },
+    {
+      "title": "Top Bowling Strike Rates",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=66&club=4565&team=0&pool=&season=2025&grade=&newpage=&minovers=4"
+    },
+    {
+      "title": "Most Wickets in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=30&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Hat Tricks",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=41&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Five Wicket Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=48&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Five Wicket Innings in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=11&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive 5WI",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=83&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive Innings Taking a Wicket",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=160&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Best Bowling in Innings on Debut",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=52&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Best Bowling in Match on Debut",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=210&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Expensive Bowling in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=36&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Least Expensive Bowling in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=161&club=4565&team=0&pool=&season=2025&grade=&newpage=&minovers=4"
+    },
+    {
+      "title": "Most Wides in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=127&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Noballs in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=129&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Balls Bowled",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=148&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Balls Bowled in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=158&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Balls Bowled in a Match",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=140&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Bowler/Fielder Combinations",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=159&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Opening Bowlers by Match Count",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=198&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Ducks Inflicted",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=215&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Golden Ducks Inflicted",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=220&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Bowling Rankings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=151&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "On This Day - Bowling",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=257&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Dismissals (catches+stumpings)",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=102&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Wicket Keeping",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=13&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Wicket Keeping in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=113&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Wicket Keeping in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=31&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Wicket Keeping in a Match",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=57&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Catches",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=33&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Catches in a Season",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=56&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Catches in a Match",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=50&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Catches in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=63&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Catches in an Innings by Field",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=115&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Catches by Field",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=18&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Catches in a Season by Field",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=47&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Catches in a Match by Field",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=99&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive Matches Without a Catch",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=133&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Run Outs",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=46&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Top Bowler/Fielder Combs",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=159&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Balls to Get Off Mark",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=243&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Dismissed First Ball of Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=244&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Dismissed First Ball of Match",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=245&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Runs in an Over",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=230&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Sixes in an Over",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=231&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Balls in an Over",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=229&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Wides in an Over",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=250&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Noballs in an Over",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=251&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Recent Batting",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=238&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Recent Bowling",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=239&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Recent Matches",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=240&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Recent Catches",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=241&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Recent Keeping",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=242&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Upcoming Batting",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=24&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Upcoming Bowling",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=25&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Upcoming Matches",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=26&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Upcoming Catches",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=125&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Upcoming Keeping",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=126&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Matches",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=21&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Wins",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=35&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Grand Final Wins",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=213&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Highest Win% by Player",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=142&club=4565&team=0&pool=&season=2025&grade=&newpage=&minmatches=20"
+    },
+    {
+      "title": "Highest Loss% by Player",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=143&club=4565&team=0&pool=&season=2025&grade=&newpage=&minmatches=20"
+    },
+    {
+      "title": "Most Wins by Captains",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=35&captains=1&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Longest Serving by Duration",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=45&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Longest Serving by Seasons",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=114&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "MVP Points",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=19&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Matches Played Together",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=84&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Players that have Played a Match",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=122&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "By First Match then Name",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=116&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "By First Match then Batting Pos",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=34&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive Toss Wins by Captain",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=137&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive Toss Losses by Captain",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=138&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Matches Between Appearances",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=263&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Days Between Appearances",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=264&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Highest Innings Totals",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=27&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Lowest Innings Totals",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=28&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Shortest All-Out Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=214&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Longest Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=260&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Highest Innings Totals by Opp",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=196&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Lowest Innings Totals by Opp",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=197&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Highest Match Totals",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=118&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Lowest Match Totals",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=119&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Highest Winning Margins by Runs",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=72&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Highest Winning Margins by Wkts",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=74&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Narrowest Winning Margins by Runs",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=73&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Narrowest Winning Margins by Wkts",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=75&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Highest Successful Run Chases",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=62&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Wins with Most Balls to Spare",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=199&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Wins with Least Balls to Spare",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=200&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Win Rates by 1st Innings Scores",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=265&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Tied Matches",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=94&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive Matches Without a Loss",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=111&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive Matches Without a Win",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=112&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive Toss Wins by Team",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=135&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Consecutive Toss Losses by Team",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=136&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Extras in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=61&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Extras Top Scoring",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=165&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Penalty Runs in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=141&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Bowlers Used in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=206&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Match Summary by Opposition",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=42&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Hundreds in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=166&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Fifties in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=167&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Highest Innings Totals w/o a Century",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=179&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Lowest Innings Totals with a Century",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=185&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Bowled Dismissals in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=117&club=4565&team=0&pool=&season=2025&grade=&newpage=&howout=2"
+    },
+    {
+      "title": "Most Caught Dismissals in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=117&club=4565&team=0&pool=&season=2025&grade=&newpage=&howout=3"
+    },
+    {
+      "title": "Most C&B Dismissals in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=117&club=4565&team=0&pool=&season=2025&grade=&newpage=&howout=4"
+    },
+    {
+      "title": "Most LBW Dismissals in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=117&club=4565&team=0&pool=&season=2025&grade=&newpage=&howout=6"
+    },
+    {
+      "title": "Most Run Out Dismissals in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=117&club=4565&team=0&pool=&season=2025&grade=&newpage=&howout=7"
+    },
+    {
+      "title": "Most Stumped Dismissals in an Innings",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=117&club=4565&team=0&pool=&season=2025&grade=&newpage=&howout=8"
+    },
+    {
+      "title": "Did Not Bat/Bowl/Keep Count",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=255&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Matches by Umpires",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=95&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    },
+    {
+      "title": "Most Matches by Scorers",
+      "url": "https://www2.cricketstatz.com/ss/rrj?mode=96&club=4565&team=0&pool=&season=2025&grade=&newpage="
+    }
+  ]
+}

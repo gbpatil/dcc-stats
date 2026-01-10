@@ -1,0 +1,209 @@
+.wrapper {
+  padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-xl);
+  width: 100%;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.titleIcon {
+  font-size: var(--font-size-2xl);
+}
+
+.count {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  background: var(--color-bg-tertiary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+}
+
+.count strong {
+  color: var(--color-accent-primary);
+}
+
+/* Table */
+.tableContainer {
+  overflow-x: auto;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+  box-shadow: var(--shadow-md);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.table thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.table th {
+  background: linear-gradient(180deg, var(--color-bg-tertiary) 0%, var(--color-bg-secondary) 100%);
+  padding: var(--spacing-md) var(--spacing-sm);
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  border-bottom: 2px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.table th.highlightColumn {
+  color: var(--color-accent-primary);
+}
+
+.table td {
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border-subtle);
+  color: var(--color-text-primary);
+  transition: background-color var(--transition-fast);
+}
+
+.table tbody tr {
+  transition: all var(--transition-fast);
+}
+
+.table tbody tr:hover {
+  background: var(--color-bg-hover);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Rank highlighting */
+.table tbody tr.rank1 {
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+}
+
+.table tbody tr.rank2 {
+  background: linear-gradient(90deg, rgba(192, 192, 192, 0.1) 0%, transparent 50%);
+}
+
+.table tbody tr.rank3 {
+  background: linear-gradient(90deg, rgba(205, 127, 50, 0.1) 0%, transparent 50%);
+}
+
+.table tbody tr.rank1:hover,
+.table tbody tr.rank2:hover,
+.table tbody tr.rank3:hover {
+  background: var(--color-bg-hover);
+}
+
+/* Cell styling */
+.rankCell {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.rankBadge {
+  font-size: var(--font-size-xl);
+}
+
+.playerName {
+  font-weight: var(--font-weight-medium);
+}
+
+.playerLink {
+  color: var(--color-text-primary);
+  transition: color var(--transition-fast);
+}
+
+.table tbody tr:hover .playerLink {
+  color: var(--color-accent-primary);
+}
+
+.highlightColumn {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent-primary) !important;
+}
+
+/* State containers */
+.stateContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) var(--spacing-xl);
+  min-height: 400px;
+}
+
+.errorState,
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stateIcon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.8;
+}
+
+.stateTitle {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-sm);
+}
+
+.stateMessage {
+  color: var(--color-text-secondary);
+  margin: 0;
+  max-width: 400px;
+}
+
+.stateHint {
+  margin-top: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .wrapper {
+    padding: var(--spacing-md);
+  }
+
+  .table {
+    font-size: var(--font-size-xs);
+  }
+
+  .table th,
+  .table td {
+    padding: var(--spacing-sm) var(--spacing-xs);
+  }
+
+  .table th {
+    font-size: 0.625rem;
+  }
+}
