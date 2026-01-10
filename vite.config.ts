@@ -4,8 +4,8 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // Base URL for GitHub Pages - update 'DCC-Stats' to match your repo name
-  base: process.env.NODE_ENV === 'production' ? '/DCC-Stats/' : '/',
+  // Base URL for GitHub Pages
+  base: process.env.NODE_ENV === 'production' ? '/dcc-stats/' : '/',
   plugins: [react()],
   resolve: {
     alias: {
