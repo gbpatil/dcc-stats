@@ -132,7 +132,7 @@
   );
 }
 
-/* Responsive */
+/* Tablet */
 @media (max-width: 768px) {
   .header {
     padding: var(--spacing-md);
@@ -141,14 +141,79 @@
   .content {
     flex-direction: column;
     gap: var(--spacing-md);
-    align-items: flex-start;
+    align-items: stretch;
+  }
+
+  .logoSection {
+    justify-content: center;
+  }
+
+  .logo {
+    gap: var(--spacing-sm);
   }
 
   .title {
-    font-size: var(--font-size-xl);
+    font-size: 1.4rem;
+  }
+
+  .subtitle {
+    font-size: 0.7rem;
   }
 
   .logoIcon {
     font-size: 2rem;
+  }
+
+  .controls {
+    justify-content: center;
+  }
+
+  .seasonSelector {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .seasonSelect {
+    flex: 1;
+    max-width: 200px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .header {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .logo {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-xs);
+  }
+
+  .logoText {
+    align-items: center;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .subtitle {
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+  }
+
+  .logoIcon {
+    font-size: 1.75rem;
+  }
+
+  .seasonLabel {
+    font-size: 0.7rem;
+  }
+
+  .seasonSelect {
+    font-size: 0.9rem;
+    padding: var(--spacing-xs) var(--spacing-lg) var(--spacing-xs) var(--spacing-sm);
   }
 }

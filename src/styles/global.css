@@ -184,4 +184,32 @@ svg {
   html {
     font-size: 16px;
   }
+
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+/* ========== Mobile Touch Improvements ========== */
+
+@media (hover: none) and (pointer: coarse) {
+  /* Larger tap targets on touch devices */
+  button,
+  select,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Remove hover effects on touch */
+  button:hover,
+  a:hover {
+    opacity: 1;
+  }
 }

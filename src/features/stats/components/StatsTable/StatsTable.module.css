@@ -47,6 +47,7 @@
   border: 1px solid var(--color-border);
   background: var(--color-bg-secondary);
   box-shadow: var(--shadow-md);
+  -webkit-overflow-scrolling: touch;
 }
 
 .table {
@@ -188,10 +189,58 @@
   color: var(--color-text-muted);
 }
 
-/* Responsive */
+/* Mobile scroll indicator */
+.scrollHint {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.scrollHint span {
+  animation: bounceX 1.5s ease-in-out infinite;
+}
+
+@keyframes bounceX {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+/* Tablet */
 @media (max-width: 768px) {
   .wrapper {
     padding: var(--spacing-md);
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .title {
+    font-size: var(--font-size-lg);
+  }
+
+  .titleIcon {
+    font-size: var(--font-size-xl);
+  }
+
+  .scrollHint {
+    display: flex;
+  }
+
+  .tableContainer {
+    border-radius: var(--radius-md);
   }
 
   .table {
@@ -204,6 +253,86 @@
   }
 
   .table th {
-    font-size: 0.625rem;
+    font-size: 0.65rem;
+    padding: var(--spacing-sm) var(--spacing-xs);
+  }
+
+  .stateContainer {
+    min-height: 300px;
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .stateIcon {
+    font-size: 2.5rem;
+  }
+
+  .stateTitle {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .wrapper {
+    padding: var(--spacing-sm);
+  }
+
+  .header {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .title {
+    font-size: var(--font-size-base);
+    gap: var(--spacing-xs);
+  }
+
+  .titleIcon {
+    font-size: var(--font-size-lg);
+  }
+
+  .count {
+    font-size: var(--font-size-xs);
+    padding: 2px var(--spacing-xs);
+  }
+
+  .tableContainer {
+    border-radius: var(--radius-sm);
+    margin: 0 -0.5rem;
+    width: calc(100% + 1rem);
+  }
+
+  .table {
+    font-size: 0.7rem;
+  }
+
+  .table th {
+    font-size: 0.6rem;
+    padding: var(--spacing-xs);
+    letter-spacing: 0;
+  }
+
+  .table td {
+    padding: var(--spacing-xs);
+  }
+
+  .rankBadge {
+    font-size: var(--font-size-base);
+  }
+
+  .stateContainer {
+    min-height: 250px;
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+
+  .stateIcon {
+    font-size: 2rem;
+  }
+
+  .stateTitle {
+    font-size: var(--font-size-base);
+  }
+
+  .stateMessage {
+    font-size: var(--font-size-sm);
   }
 }
