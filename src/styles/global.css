@@ -41,9 +41,9 @@ body {
   flex-direction: column;
   position: relative;
   background: 
-    radial-gradient(ellipse at 20% 20%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 80%, rgba(5, 150, 105, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 20%, rgba(30, 132, 73, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(241, 196, 15, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(30, 132, 73, 0.04) 0%, transparent 60%),
     var(--color-bg-primary);
 }
 

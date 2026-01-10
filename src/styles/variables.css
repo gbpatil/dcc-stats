@@ -12,12 +12,14 @@
   --color-bg-tertiary: #22262a;
   --color-bg-hover: #2d3238;
   
-  /* Accent Colors - Emerald Green */
-  --color-accent-primary: #10b981;
-  --color-accent-secondary: #059669;
-  --color-accent-tertiary: #34d399;
-  --color-accent-glow: rgba(16, 185, 129, 0.3);
-  --color-accent-subtle: rgba(16, 185, 129, 0.1);
+  /* Accent Colors - DCC Logo Colors (Green & Gold) */
+  --color-accent-primary: #1E8449;      /* DCC Green - primary actions, highlights */
+  --color-accent-secondary: #F1C40F;    /* DCC Gold/Yellow - secondary highlights */
+  --color-accent-tertiary: #27AE60;     /* Lighter green for hover states */
+  --color-accent-gold: #F4D03F;         /* Lighter gold for accents */
+  --color-accent-glow: rgba(30, 132, 73, 0.35);
+  --color-accent-subtle: rgba(30, 132, 73, 0.15);
+  --color-accent-gold-glow: rgba(241, 196, 15, 0.3);
   
   /* Text Colors */
   --color-text-primary: #f5f5f5;
@@ -29,8 +31,8 @@
   --color-border-subtle: #262a2e;
   
   /* Status Colors */
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
+  --color-success: #1E8449;
+  --color-warning: #F1C40F;
   --color-error: #ef4444;
   --color-info: #3b82f6;
 
