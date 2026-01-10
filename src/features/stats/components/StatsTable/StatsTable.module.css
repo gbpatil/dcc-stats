@@ -246,17 +246,19 @@
   }
 
   .table {
-    font-size: var(--font-size-xs);
+    font-size: 0.75rem;
+    min-width: auto; /* Allow table to be more fluid */
   }
 
   .table th,
   .table td {
-    padding: var(--spacing-sm) var(--spacing-xs);
+    padding: 6px 4px;
   }
 
+  /* Override inline minWidth on tablet */
   .table th {
     font-size: 0.65rem;
-    padding: var(--spacing-sm) var(--spacing-xs);
+    min-width: auto !important;
   }
 
   .stateContainer {
@@ -276,7 +278,7 @@
 /* Mobile */
 @media (max-width: 480px) {
   .wrapper {
-    padding: var(--spacing-sm);
+    padding: var(--spacing-xs);
   }
 
   .header {
@@ -299,26 +301,36 @@
 
   .tableContainer {
     border-radius: var(--radius-sm);
-    margin: 0 -0.5rem;
-    width: calc(100% + 1rem);
+    margin: 0 -0.25rem;
+    width: calc(100% + 0.5rem);
   }
 
   .table {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
+    min-width: auto; /* Allow table to compress */
+    width: 100%;
   }
 
+  /* Override inline minWidth on mobile - make columns fit */
   .table th {
-    font-size: 0.6rem;
-    padding: var(--spacing-xs);
+    font-size: 0.55rem;
+    padding: 4px 2px;
     letter-spacing: 0;
+    min-width: auto !important;
   }
 
   .table td {
-    padding: var(--spacing-xs);
+    padding: 4px 2px;
   }
 
   .rankBadge {
-    font-size: var(--font-size-base);
+    font-size: 0.9rem;
+  }
+
+  .playerName {
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .stateContainer {
@@ -336,5 +348,25 @@
 
   .stateMessage {
     font-size: var(--font-size-sm);
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 360px) {
+  .table {
+    font-size: 0.6rem;
+  }
+
+  .table th {
+    font-size: 0.5rem;
+    padding: 3px 1px;
+  }
+
+  .table td {
+    padding: 3px 1px;
+  }
+
+  .playerName {
+    max-width: 60px;
   }
 }
