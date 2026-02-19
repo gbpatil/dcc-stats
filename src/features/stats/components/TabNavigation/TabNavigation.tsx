@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import type { Report, ReportCategory } from '../../types';
-import { 
-  getPrimaryReports, 
-  getSecondaryReportsByCategory,
+import {
+  getAllReportsByCategory,
   CATEGORY_INFO,
 } from '../../services';
 import styles from './TabNavigation.module.css';
@@ -12,10 +11,30 @@ interface TabNavigationProps {
   onReportChange: (report: Report) => void;
 }
 
+// Custom hook to detect mobile viewport
+function useIsMobile(breakpoint: number = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= breakpoint);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [breakpoint]);
+  
+  return isMobile;
+}
+
 export function TabNavigation({ activeReport, onReportChange }: TabNavigationProps) {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const mobileDropdownRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  
+  // Mobile detection
+  const isMobile = useIsMobile(768);
   
   // Drag state
   const [isDragging, setIsDragging] = useState(false);
@@ -25,21 +44,20 @@ export function TabNavigation({ activeReport, onReportChange }: TabNavigationPro
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
 
-  const primaryReports = getPrimaryReports();
-  const secondaryByCategory = getSecondaryReportsByCategory();
-  
-  // Debug logging
-  useEffect(() => {
-    console.log('Primary reports:', primaryReports.length);
-    console.log('Secondary by category:', secondaryByCategory);
-    console.log('Categories:', Object.keys(secondaryByCategory));
-  }, []);
+  // Two-level navigation: all reports grouped by category
+  const allByCategory = getAllReportsByCategory();
+  const categoryEntries = Object.entries(allByCategory) as [ReportCategory, Report[]][];
+
+  // Derive active category from active report (no separate state needed since
+  // tapping a category chip auto-selects the first report in that category)
+  const activeCategory = activeReport?.category || 'batting';
+  const filteredReports = allByCategory[activeCategory] || [];
 
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setDropdownOpen(false);
+      if (mobileDropdownRef.current && !mobileDropdownRef.current.contains(event.target as Node)) {
+        setMobileDropdownOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -137,8 +155,6 @@ export function TabNavigation({ activeReport, onReportChange }: TabNavigationPro
     });
   };
 
-  const isSecondaryActive = activeReport && !primaryReports.some(r => r.id === activeReport.id);
-
   const handleTabClick = (report: Report) => {
     // Only handle click if user didn't drag
     if (!hasDragged) {
@@ -147,126 +163,169 @@ export function TabNavigation({ activeReport, onReportChange }: TabNavigationPro
     setHasDragged(false);
   };
 
-  const handleDropdownToggle = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
-  const handleSecondarySelect = (report: Report) => {
+  const handleMobileSelect = (report: Report) => {
     onReportChange(report);
-    setDropdownOpen(false);
+    setMobileDropdownOpen(false);
   };
 
-  const categories = Object.entries(secondaryByCategory) as [ReportCategory, Report[]][];
+  const handleCategoryChange = (category: ReportCategory) => {
+    // Auto-select the first report in the new category
+    const reportsInCategory = allByCategory[category];
+    if (reportsInCategory && reportsInCategory.length > 0) {
+      onReportChange(reportsInCategory[0]);
+    }
+    setMobileDropdownOpen(false);
+  };
 
+  // Mobile view: Two-level category navigation
+  if (isMobile) {
+    return (
+      <nav className={styles.navigation}>
+        <div className={styles.mobileNavWrapper}>
+          {/* Level 1: Category chips - horizontally scrollable */}
+          <div className={styles.categoryChipsContainer}>
+            <div className={styles.categoryChipsScroll}>
+              {categoryEntries.map(([category]) => (
+                <button
+                  key={category}
+                  className={`${styles.categoryChip} ${
+                    activeCategory === category ? styles.categoryChipActive : ''
+                  }`}
+                  onClick={() => handleCategoryChange(category)}
+                  aria-pressed={activeCategory === category}
+                >
+                  <span className={styles.categoryChipIcon}>
+                    {CATEGORY_INFO[category]?.icon || '📊'}
+                  </span>
+                  <span className={styles.categoryChipLabel}>
+                    {CATEGORY_INFO[category]?.label || category}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Level 2: Filtered report dropdown */}
+          <div className={styles.mobileDropdownWrapper} ref={mobileDropdownRef}>
+            <button
+              className={`${styles.mobileDropdownTrigger} ${mobileDropdownOpen ? styles.open : ''}`}
+              onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+              aria-expanded={mobileDropdownOpen}
+              aria-haspopup="listbox"
+            >
+              <span className={styles.mobileDropdownIcon}>
+                {activeReport?.icon || '📊'}
+              </span>
+              <span className={styles.mobileDropdownLabel}>
+                {activeReport?.title || 'Select Stats'}
+              </span>
+              <span className={styles.mobileDropdownArrow}>
+                {mobileDropdownOpen ? '▲' : '▼'}
+              </span>
+            </button>
+
+            {mobileDropdownOpen && (
+              <div className={styles.mobileDropdownMenu}>
+                {filteredReports.length === 0 ? (
+                  <div className={styles.mobileDropdownEmpty}>
+                    No stats available in this category
+                  </div>
+                ) : (
+                  filteredReports.map((report) => (
+                    <button
+                      key={report.id}
+                      className={`${styles.mobileDropdownItem} ${
+                        activeReport?.id === report.id ? styles.active : ''
+                      }`}
+                      onClick={() => handleMobileSelect(report)}
+                      title={report.title}
+                    >
+                      <span className={styles.mobileDropdownItemIcon}>
+                        {report.icon}
+                      </span>
+                      <span className={styles.mobileDropdownItemLabel}>
+                        {report.title}
+                      </span>
+                    </button>
+                  ))
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </nav>
+    );
+  }
+
+  // Desktop view: Category chips + filtered report tabs
   return (
     <nav className={styles.navigation}>
-      <div className={styles.wrapper}>
-        {/* Left scroll button */}
-        <button 
-          className={`${styles.scrollButton} ${styles.scrollLeft} ${showLeftArrow ? styles.active : ''}`}
-          onClick={() => scrollByAmount('left')}
-          aria-label="Scroll left"
-          title="Scroll tabs left"
-        >
-          <span className={styles.arrowIcon}>◀</span>
-        </button>
-
-        {/* Scrollable tabs container */}
-        <div 
-          ref={scrollContainerRef}
-          className={`${styles.container} ${isDragging ? styles.dragging : ''}`}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseLeave}
-        >
-          {/* Primary Tabs */}
-          {primaryReports.map((report) => (
+      <div className={styles.desktopNavWrapper}>
+        {/* Level 1: Category chips */}
+        <div className={styles.desktopCategoryChips}>
+          {categoryEntries.map(([category]) => (
             <button
-              key={report.id}
-              className={`${styles.tab} ${activeReport?.id === report.id ? styles.active : ''}`}
-              onClick={() => handleTabClick(report)}
-              aria-selected={activeReport?.id === report.id}
-              role="tab"
-              title={report.title}
+              key={category}
+              className={`${styles.categoryChip} ${styles.desktopChip} ${
+                activeCategory === category ? styles.categoryChipActive : ''
+              }`}
+              onClick={() => handleCategoryChange(category)}
+              aria-pressed={activeCategory === category}
             >
-              <span className={styles.tabIcon}>{report.icon}</span>
-              <span className={styles.tabLabel}>{report.title}</span>
+              <span className={styles.categoryChipIcon}>
+                {CATEGORY_INFO[category]?.icon || '📊'}
+              </span>
+              <span className={styles.categoryChipLabel}>
+                {CATEGORY_INFO[category]?.label || category}
+              </span>
             </button>
           ))}
         </div>
 
-        {/* Right scroll button */}
-        <button 
-          className={`${styles.scrollButton} ${styles.scrollRight} ${showRightArrow ? styles.active : ''}`}
-          onClick={() => scrollByAmount('right')}
-          aria-label="Scroll right"
-          title="Scroll tabs right"
-        >
-          <span className={styles.arrowIcon}>▶</span>
-        </button>
-
-        {/* More Stats Dropdown - Outside scrollable container */}
-        <div className={styles.dropdownWrapper} ref={dropdownRef}>
+        {/* Level 2: Filtered report tabs with scroll */}
+        <div className={styles.wrapper}>
           <button
-            className={`${styles.tab} ${styles.dropdownTrigger} ${isSecondaryActive ? styles.active : ''} ${dropdownOpen ? styles.open : ''}`}
-            onClick={handleDropdownToggle}
-            aria-expanded={dropdownOpen}
-            aria-haspopup="true"
+            className={`${styles.scrollButton} ${styles.scrollLeft} ${showLeftArrow ? styles.active : ''}`}
+            onClick={() => scrollByAmount('left')}
+            aria-label="Scroll left"
+            title="Scroll tabs left"
           >
-            <span className={styles.tabIcon}>📋</span>
-            <span className={styles.tabLabel}>
-              {isSecondaryActive && activeReport ? activeReport.title : 'More Stats'}
-            </span>
-            <span className={styles.dropdownArrow}>{dropdownOpen ? '▲' : '▼'}</span>
+            <span className={styles.arrowIcon}>◀</span>
           </button>
 
-          {dropdownOpen && (
-            <div className={styles.dropdownMenu}>
-              {categories.length === 0 ? (
-                <div className={styles.dropdownEmpty}>No additional stats available</div>
-              ) : (
-                categories.map(([category, reports]) => (
-                  <DropdownSection
-                    key={category}
-                    title={`${CATEGORY_INFO[category]?.icon || '📊'} ${CATEGORY_INFO[category]?.label || category}`}
-                    reports={reports}
-                    activeReport={activeReport}
-                    onSelect={handleSecondarySelect}
-                  />
-                ))
-              )}
-            </div>
-          )}
+          <div
+            ref={scrollContainerRef}
+            className={`${styles.container} ${isDragging ? styles.dragging : ''}`}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+          >
+            {filteredReports.map((report) => (
+              <button
+                key={report.id}
+                className={`${styles.tab} ${activeReport?.id === report.id ? styles.active : ''}`}
+                onClick={() => handleTabClick(report)}
+                aria-selected={activeReport?.id === report.id}
+                role="tab"
+                title={report.title}
+              >
+                <span className={styles.tabIcon}>{report.icon}</span>
+                <span className={styles.tabLabel}>{report.title}</span>
+              </button>
+            ))}
+          </div>
+
+          <button
+            className={`${styles.scrollButton} ${styles.scrollRight} ${showRightArrow ? styles.active : ''}`}
+            onClick={() => scrollByAmount('right')}
+            aria-label="Scroll right"
+            title="Scroll tabs right"
+          >
+            <span className={styles.arrowIcon}>▶</span>
+          </button>
         </div>
       </div>
     </nav>
-  );
-}
-
-// Sub-component for dropdown sections
-interface DropdownSectionProps {
-  title: string;
-  reports: Report[];
-  activeReport: Report | null;
-  onSelect: (report: Report) => void;
-}
-
-function DropdownSection({ title, reports, activeReport, onSelect }: DropdownSectionProps) {
-  return (
-    <div className={styles.dropdownSection}>
-      <div className={styles.dropdownSectionTitle}>{title}</div>
-      {reports.map((report) => (
-        <button
-          key={report.id}
-          className={`${styles.dropdownItem} ${activeReport?.id === report.id ? styles.active : ''}`}
-          onClick={() => onSelect(report)}
-          title={report.title}
-        >
-          <span className={styles.dropdownItemIcon}>{report.icon}</span>
-          <span className={styles.dropdownItemLabel}>{report.title}</span>
-        </button>
-      ))}
-    </div>
   );
 }

@@ -1,7 +1,8 @@
-export { 
+export {
   getPrimaryReports,
   getSecondaryReports,
   getSecondaryReportsByCategory,
+  getAllReportsByCategory,
   getReportById,
   getAllReports,
   fetchReportData,

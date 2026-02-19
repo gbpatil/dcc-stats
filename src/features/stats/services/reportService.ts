@@ -159,7 +159,32 @@ export function getSecondaryReportsByCategory(): Record<ReportCategory, Report[]
 
   // Remove empty categories
   return Object.fromEntries(
-    Object.entries(grouped).filter(([_, reports]) => reports.length > 0)
+    Object.entries(grouped).filter(([, reports]) => reports.length > 0)
+  ) as Record<ReportCategory, Report[]>;
+}
+
+/**
+ * Get ALL reports grouped by category (used for mobile navigation)
+ */
+export function getAllReportsByCategory(): Record<ReportCategory, Report[]> {
+  const grouped: Record<ReportCategory, Report[]> = {
+    batting: [],
+    bowling: [],
+    fielding: [],
+    partnerships: [],
+    player: [],
+    team: [],
+    milestones: [],
+    other: [],
+  };
+
+  allReports.forEach(report => {
+    grouped[report.category].push(report);
+  });
+
+  // Remove empty categories
+  return Object.fromEntries(
+    Object.entries(grouped).filter(([, reports]) => reports.length > 0)
   ) as Record<ReportCategory, Report[]>;
 }
 

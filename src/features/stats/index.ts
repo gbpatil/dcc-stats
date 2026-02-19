@@ -6,10 +6,11 @@ export { StatsTable } from './components/StatsTable';
 export { useReportData, useAvailableSeasons } from './hooks';
 
 // Services
-export { 
+export {
   getPrimaryReports,
   getSecondaryReports,
   getSecondaryReportsByCategory,
+  getAllReportsByCategory,
   getReportById,
   getAllReports,
   fetchReportData,
