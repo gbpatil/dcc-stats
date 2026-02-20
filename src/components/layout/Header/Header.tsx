@@ -1,3 +1,4 @@
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import styles from './Header.module.css';
 
 interface HeaderProps {
@@ -12,9 +13,9 @@ export function Header({ season, onSeasonChange, availableSeasons }: HeaderProps
       <div className={styles.content}>
         <div className={styles.logoSection}>
           <div className={styles.logo}>
-            <img 
+            <img
               src={`${import.meta.env.BASE_URL}dcc-logo.png`}
-              alt="Dundalk Cricket Club Logo" 
+              alt="Dundalk Cricket Club Logo"
               className={styles.logoImage}
             />
             <div className={styles.logoText}>
@@ -23,7 +24,7 @@ export function Header({ season, onSeasonChange, availableSeasons }: HeaderProps
             </div>
           </div>
         </div>
-        
+
         <div className={styles.controls}>
           <div className={styles.seasonSelector}>
             <label htmlFor="season-select" className={styles.seasonLabel}>
@@ -42,9 +43,10 @@ export function Header({ season, onSeasonChange, availableSeasons }: HeaderProps
               ))}
             </select>
           </div>
+          <ThemeToggle />
         </div>
       </div>
-      
+
       <div className={styles.decoration}>
         <div className={styles.decorationLine} />
       </div>

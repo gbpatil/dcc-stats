@@ -1,6 +1,6 @@
 .navigation {
-  background-color: #0d0f11;
-  border-bottom: 2px solid var(--accent-primary);
+  background-color: var(--color-bg-primary);
+  border-bottom: 2px solid var(--color-accent-primary);
   padding: 1rem 0;
   position: sticky;
   top: 80px;
@@ -21,10 +21,10 @@
   flex-shrink: 0;
   width: 44px;
   height: 44px;
-  background-color: #1a1d20;
-  border: 2px solid #3f4448;
+  background-color: var(--color-bg-secondary);
+  border: 2px solid var(--color-border);
   border-radius: 10px;
-  color: #a3a3a3;
+  color: var(--color-text-secondary);
   font-size: 1rem;
   display: flex;
   align-items: center;
@@ -34,15 +34,15 @@
 }
 
 .scrollButton:hover {
-  background-color: #2d3238;
-  border-color: var(--accent-primary);
-  color: var(--text-primary);
+  background-color: var(--color-bg-hover);
+  border-color: var(--color-accent-primary);
+  color: var(--color-text-primary);
 }
 
 .scrollButton.active {
-  background-color: #22262a;
-  border-color: var(--accent-primary);
-  color: var(--accent-tertiary);
+  background-color: var(--color-bg-tertiary);
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-tertiary);
 }
 
 .scrollButton:active {
@@ -67,7 +67,7 @@
   cursor: grab;
   padding: 0.5rem 0;
   -webkit-overflow-scrolling: touch;
-  
+
   /* Hide scrollbar but keep functionality */
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -88,10 +88,10 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.8rem 1rem;
-  background-color: #1a1d20;
-  border: 2px solid #3f4448;
+  background-color: var(--color-bg-secondary);
+  border: 2px solid var(--color-border);
   border-radius: 10px;
-  color: #a3a3a3;
+  color: var(--color-text-secondary);
   font-family: var(--font-family-display);
   font-size: clamp(0.8rem, 1vw, 1rem);
   font-weight: 500;
@@ -104,15 +104,15 @@
 }
 
 .tab:hover {
-  background-color: #2d3238;
-  color: #f5f5f5;
-  border-color: var(--accent-primary);
+  background-color: var(--color-bg-hover);
+  color: var(--color-text-primary);
+  border-color: var(--color-accent-primary);
 }
 
 .tab.active {
-  background-color: #1E8449;
+  background-color: var(--color-accent-primary);
   color: #ffffff;
-  border-color: #F1C40F;
+  border-color: var(--color-accent-secondary);
   font-weight: 600;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 12px rgba(30, 132, 73, 0.5);
@@ -144,10 +144,10 @@
   gap: 0.75rem;
   width: 100%;
   padding: 1rem 1.25rem;
-  background-color: #1a1d20;
-  border: 2px solid var(--accent-primary);
+  background-color: var(--color-bg-secondary);
+  border: 2px solid var(--color-accent-primary);
   border-radius: 12px;
-  color: #f5f5f5;
+  color: var(--color-text-primary);
   font-family: var(--font-family-display);
   font-size: 1rem;
   font-weight: 500;
@@ -157,13 +157,13 @@
 }
 
 .mobileDropdownTrigger:hover {
-  background-color: #2d3238;
-  border-color: var(--accent-tertiary);
+  background-color: var(--color-bg-hover);
+  border-color: var(--color-accent-tertiary);
 }
 
 .mobileDropdownTrigger.open {
-  background-color: var(--accent-primary);
-  border-color: var(--accent-tertiary);
+  background-color: var(--color-accent-primary);
+  border-color: var(--color-accent-tertiary);
   color: #ffffff;
   font-weight: 600;
   box-shadow: 0 0 12px rgba(30, 132, 73, 0.5);
@@ -197,16 +197,16 @@
   width: 100%;
   max-height: 70vh;
   overflow-y: auto;
-  background-color: #1a1d20;
-  border: 2px solid var(--accent-primary);
+  background-color: var(--color-bg-secondary);
+  border: 2px solid var(--color-accent-primary);
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 24px var(--accent-glow);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 24px var(--color-accent-glow);
   z-index: 1000;
   padding: 0.75rem;
-  
+
   /* Firefox scrollbar */
   scrollbar-width: thin;
-  scrollbar-color: var(--accent-primary) #22262a;
+  scrollbar-color: var(--color-accent-primary) var(--color-bg-tertiary);
 }
 
 /* Webkit scrollbar (Chrome, Safari, Edge) */
@@ -215,18 +215,18 @@
 }
 
 .mobileDropdownMenu::-webkit-scrollbar-track {
-  background: #22262a;
+  background: var(--color-bg-tertiary);
   border-radius: 6px;
 }
 
 .mobileDropdownMenu::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+  background: linear-gradient(180deg, var(--color-accent-primary), var(--color-accent-secondary));
   border-radius: 6px;
-  border: 2px solid #22262a;
+  border: 2px solid var(--color-bg-tertiary);
 }
 
 .mobileDropdownMenu::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-tertiary);
+  background: var(--color-accent-tertiary);
 }
 
 /* ========== Desktop Two-Level Navigation ========== */
@@ -291,10 +291,10 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.5rem 0.75rem;
-  background-color: #1a1d20;
-  border: 2px solid #3f4448;
+  background-color: var(--color-bg-secondary);
+  border: 2px solid var(--color-border);
   border-radius: var(--radius-full);
-  color: #a3a3a3;
+  color: var(--color-text-secondary);
   font-family: var(--font-family-display);
   font-size: 0.8rem;
   font-weight: 500;
@@ -306,15 +306,15 @@
 }
 
 .categoryChip:hover {
-  background-color: #2d3238;
-  color: #f5f5f5;
-  border-color: var(--accent-primary);
+  background-color: var(--color-bg-hover);
+  color: var(--color-text-primary);
+  border-color: var(--color-accent-primary);
 }
 
 .categoryChipActive {
-  background-color: #1E8449;
+  background-color: var(--color-accent-primary);
   color: #ffffff;
-  border-color: #F1C40F;
+  border-color: var(--color-accent-secondary);
   font-weight: 600;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 8px rgba(30, 132, 73, 0.4);
@@ -336,10 +336,10 @@
   gap: 0.75rem;
   width: 100%;
   padding: 1rem 1.25rem;
-  background-color: #22262a;
+  background-color: var(--color-bg-tertiary);
   border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  color: #a3a3a3;
+  border-bottom: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary);
   font-family: var(--font-family-display);
   font-size: 1rem;
   text-align: left;
@@ -353,16 +353,16 @@
 }
 
 .mobileDropdownItem:hover {
-  background-color: #2d3238;
-  color: #f5f5f5;
+  background-color: var(--color-bg-hover);
+  color: var(--color-text-primary);
   padding-left: 1.5rem;
 }
 
 .mobileDropdownItem.active {
-  background-color: rgba(30, 132, 73, 0.2);
-  color: #F4D03F;
+  background-color: var(--color-accent-subtle);
+  color: var(--color-accent-gold);
   font-weight: 500;
-  border-left: 3px solid var(--accent-primary);
+  border-left: 3px solid var(--color-accent-primary);
 }
 
 .mobileDropdownItemIcon {
@@ -382,7 +382,7 @@
 .mobileDropdownEmpty {
   padding: 2rem 1rem;
   text-align: center;
-  color: var(--text-muted);
+  color: var(--color-text-muted);
   font-size: 0.95rem;
 }
 

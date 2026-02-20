@@ -40,11 +40,25 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  background: 
+  background:
     radial-gradient(ellipse at 20% 20%, rgba(30, 132, 73, 0.08) 0%, transparent 50%),
     radial-gradient(ellipse at 80% 80%, rgba(241, 196, 15, 0.04) 0%, transparent 50%),
     radial-gradient(ellipse at 50% 50%, rgba(30, 132, 73, 0.04) 0%, transparent 60%),
     var(--color-bg-primary);
+}
+
+[data-theme="light"] #root {
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(30, 132, 73, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(241, 196, 15, 0.03) 0%, transparent 50%),
+    var(--color-bg-primary);
+}
+
+/* Theme transition */
+html[data-theme],
+html[data-theme] body,
+html[data-theme] #root {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ========== Scrollbar ========== */
