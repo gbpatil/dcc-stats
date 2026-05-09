@@ -1,4 +1,5 @@
-import type { Report, StatsRow, ColumnConfig } from '../../types';
+import { useMemo, useState } from 'react';
+import type { Report, ReportCategory, StatsRow, ColumnConfig } from '../../types';
 import { Spinner } from '@/components/ui';
 import styles from './StatsTable.module.css';
 
@@ -56,7 +57,7 @@ const COLUMN_LABELS: Record<string, { label: string; title?: string }> = {
 };
 
 // Columns that should be highlighted (important stats)
-const HIGHLIGHT_COLUMNS = ['runs', 'wkts', 'avg', 'total', 'score', 'points', 'catches', 'hs', 'bb', 'sr', 'econ'];
+const HIGHLIGHT_COLUMNS = ['runs', 'wkts', 'avg', 'total', 'score', 'points', 'catches', 'stumpings', 'runouts', 'hs', 'bb', 'sr', 'econ', '5w', '4w'];
 
 // Columns that contain player names
 const NAME_COLUMNS = ['name', 'bat1', 'bat2', 'player'];
@@ -64,20 +65,19 @@ const NAME_COLUMNS = ['name', 'bat1', 'bat2', 'player'];
 // Priority columns that should appear first (in order)
 const PRIORITY_ORDER = ['no', 'name', 'player', 'bat1', 'bat2'];
 
-// Order for highlighted columns (most important first, HS after Runs and Avg)
-const HIGHLIGHT_ORDER = [
-  'runs',      // Batting: Total runs first
-  'score',     // Individual score
-  'total',     // Total
-  'avg',       // Average
-  'hs',        // Highest score (after runs and avg)
-  'sr',        // Strike rate
-  'wkts',      // Bowling: Wickets
-  'bb',        // Best bowling (after wkts)
-  'econ',      // Economy rate
-  'catches',   // Fielding
-  'points',    // Points
-];
+// Order for highlighted columns. The leading column on each report should be
+// the headline stat for that category — Wkts on bowling pages, Catches on
+// fielding pages, Runs on batting pages — so column priority is per-category.
+const HIGHLIGHT_ORDER_BY_CATEGORY: Record<ReportCategory, string[]> = {
+  bowling:      ['wkts', 'bb', 'avg', 'econ', 'sr', '5w', '4w', 'runs', 'score', 'total', 'hs', 'catches', 'points'],
+  fielding:     ['catches', 'stumpings', 'runouts', 'wkts', 'avg', 'runs', 'score', 'total', 'hs', 'sr', 'bb', 'econ', 'points'],
+  partnerships: ['runs', 'score', 'total', 'avg', 'hs', 'sr', 'wkts', 'bb', 'econ', 'catches', 'points'],
+  batting:      ['runs', 'score', 'total', 'avg', 'hs', 'sr', 'wkts', 'bb', 'econ', 'catches', 'points'],
+  player:       ['runs', 'score', 'total', 'avg', 'hs', 'sr', 'wkts', 'bb', 'econ', 'catches', 'points'],
+  team:         ['runs', 'score', 'total', 'avg', 'hs', 'sr', 'wkts', 'bb', 'econ', 'catches', 'points'],
+  milestones:   ['runs', 'score', 'total', 'avg', 'hs', 'sr', 'wkts', 'bb', 'econ', 'catches', 'points'],
+  other:        ['runs', 'score', 'total', 'avg', 'hs', 'sr', 'wkts', 'bb', 'econ', 'catches', 'points'],
+};
 
 /**
  * Get column width based on key type
@@ -103,17 +103,18 @@ function getColumnWidth(key: string): string {
  * Auto-detect and reorder columns from data
  * Order: Rank -> Name columns -> Highlighted columns -> Other columns
  */
-function detectColumns(data: StatsRow[]): ColumnConfig[] {
+function detectColumns(data: StatsRow[], category: ReportCategory = 'other'): ColumnConfig[] {
   if (!data || data.length === 0) return [];
-  
+
   const firstRow = data[0];
   const keys = Object.keys(firstRow);
-  
+  const highlightOrder = HIGHLIGHT_ORDER_BY_CATEGORY[category] ?? HIGHLIGHT_ORDER_BY_CATEGORY.other;
+
   // Create column configs
   const allColumns = keys.map(key => {
     const labelInfo = COLUMN_LABELS[key] || { label: formatColumnKey(key) };
     const isHighlight = HIGHLIGHT_COLUMNS.includes(key);
-    
+
     return {
       key,
       label: labelInfo.label,
@@ -144,11 +145,11 @@ function detectColumns(data: StatsRow[]): ColumnConfig[] {
     return PRIORITY_ORDER.indexOf(a.key) - PRIORITY_ORDER.indexOf(b.key);
   });
 
-  // Sort highlighted columns by their defined order (Runs before HS, etc.)
+  // Sort highlighted columns by category-specific order so the headline stat
+  // for the report (e.g. Wkts on bowling) leads.
   highlightColumns.sort((a, b) => {
-    const indexA = HIGHLIGHT_ORDER.indexOf(a.key);
-    const indexB = HIGHLIGHT_ORDER.indexOf(b.key);
-    // If not in order list, put at end
+    const indexA = highlightOrder.indexOf(a.key);
+    const indexB = highlightOrder.indexOf(b.key);
     const orderA = indexA === -1 ? 999 : indexA;
     const orderB = indexB === -1 ? 999 : indexB;
     return orderA - orderB;
@@ -156,6 +157,45 @@ function detectColumns(data: StatsRow[]): ColumnConfig[] {
 
   // Return reordered columns: Priority -> Highlighted -> Others
   return [...priorityColumns, ...highlightColumns, ...otherColumns];
+}
+
+/**
+ * Pick columns the user can filter by — anything whose values are textual
+ * (player names, teams, oppositions, venues, dates, seasons). Numeric stats
+ * like runs/wkts/avg are excluded since substring search on numbers is
+ * rarely what the user wants.
+ */
+function getFilterableColumns(data: StatsRow[], columns: ColumnConfig[]): ColumnConfig[] {
+  return columns.filter(col => {
+    const sample = data.find(row => {
+      const v = row[col.key];
+      return v !== null && v !== undefined && v !== '';
+    });
+    if (!sample) return false;
+    const v = sample[col.key];
+    return typeof v === 'string';
+  });
+}
+
+/**
+ * Filter rows by a substring match against either a single column or all
+ * filterable columns when columnKey is empty/"__all__".
+ */
+function filterRows(
+  data: StatsRow[],
+  query: string,
+  columnKey: string,
+  filterableKeys: string[],
+): StatsRow[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return data;
+  const keysToCheck = columnKey && columnKey !== '__all__' ? [columnKey] : filterableKeys;
+  return data.filter(row =>
+    keysToCheck.some(k => {
+      const v = row[k];
+      return v !== null && v !== undefined && String(v).toLowerCase().includes(q);
+    }),
+  );
 }
 
 /**
@@ -196,7 +236,28 @@ function getRankBadge(rank: number): string | null {
 }
 
 export function StatsTable({ data, report, loading, error }: StatsTableProps) {
-  const columns = detectColumns(data);
+  const columns = detectColumns(data, report?.category);
+  const [filterQuery, setFilterQuery] = useState('');
+  const [filterColumn, setFilterColumn] = useState('__all__');
+
+  const filterableColumns = useMemo(
+    () => getFilterableColumns(data, columns),
+    [data, columns],
+  );
+  const filterableKeys = useMemo(
+    () => filterableColumns.map(c => c.key),
+    [filterableColumns],
+  );
+  // If the previously selected column doesn't exist in the new data, treat the
+  // filter as "All" without resetting state — avoids cascading-render lint.
+  const effectiveFilterColumn =
+    filterColumn === '__all__' || filterableKeys.includes(filterColumn)
+      ? filterColumn
+      : '__all__';
+  const filteredData = useMemo(
+    () => filterRows(data, filterQuery, effectiveFilterColumn, filterableKeys),
+    [data, filterQuery, effectiveFilterColumn, filterableKeys],
+  );
 
   if (loading) {
     return (
@@ -245,6 +306,8 @@ export function StatsTable({ data, report, loading, error }: StatsTableProps) {
     );
   }
 
+  const isFiltering = filterQuery.trim().length > 0;
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
@@ -253,10 +316,59 @@ export function StatsTable({ data, report, loading, error }: StatsTableProps) {
           {report.title}
         </h2>
         <div className={styles.count}>
-          <strong>{data.length}</strong> {data.length === 1 ? 'record' : 'records'}
+          {isFiltering ? (
+            <>
+              <strong>{filteredData.length}</strong> of {data.length}{' '}
+              {data.length === 1 ? 'record' : 'records'}
+            </>
+          ) : (
+            <>
+              <strong>{data.length}</strong> {data.length === 1 ? 'record' : 'records'}
+            </>
+          )}
         </div>
       </div>
-      
+
+      {filterableColumns.length > 0 && (
+        <div className={styles.filterBar}>
+          <select
+            className={styles.filterSelect}
+            value={effectiveFilterColumn}
+            onChange={(e) => setFilterColumn(e.target.value)}
+            aria-label="Filter column"
+          >
+            <option value="__all__">Filter</option>
+            {filterableColumns.map(col => (
+              <option key={col.key} value={col.key}>
+                {col.label}
+              </option>
+            ))}
+          </select>
+          <input
+            type="search"
+            className={styles.filterInput}
+            placeholder={
+              effectiveFilterColumn === '__all__'
+                ? 'Filter by player, team, opposition…'
+                : `Filter by ${filterableColumns.find(c => c.key === effectiveFilterColumn)?.label || 'column'}…`
+            }
+            value={filterQuery}
+            onChange={(e) => setFilterQuery(e.target.value)}
+            aria-label="Filter query"
+          />
+          {isFiltering && (
+            <button
+              type="button"
+              className={styles.filterClear}
+              onClick={() => setFilterQuery('')}
+              aria-label="Clear filter"
+            >
+              Clear
+            </button>
+          )}
+        </div>
+      )}
+
       <div className={styles.tableContainer}>
         <table className={styles.table}>
           <thead>
@@ -274,7 +386,13 @@ export function StatsTable({ data, report, loading, error }: StatsTableProps) {
             </tr>
           </thead>
           <tbody>
-            {data.map((row, index) => {
+            {filteredData.length === 0 ? (
+              <tr>
+                <td colSpan={columns.length} className={styles.noMatches}>
+                  No records match "{filterQuery}".
+                </td>
+              </tr>
+            ) : filteredData.map((row, index) => {
               const rank = (row.no as number) || index + 1;
               const badge = getRankBadge(rank);
               

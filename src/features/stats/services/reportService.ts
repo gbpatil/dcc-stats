@@ -49,13 +49,17 @@ const ICON_MAPPINGS: Record<string, string> = {
   'upcoming': '📆',
 };
 
-// Category mappings based on report title keywords
+// Category mappings based on report title keywords.
+// Order matters: more-specific categories must come before broader ones, since
+// the first keyword match wins. Partnerships and fielding are checked before
+// bowling/batting so titles like "Top Partnerships by Wicket" or "Top Wicket
+// Keeping" land in the right bucket instead of matching `wicket` for bowling.
 const CATEGORY_MAPPINGS: Array<{ keywords: string[]; category: ReportCategory }> = [
-  { keywords: ['batting', 'run', 'score', 'hundred', 'century', 'fifty', 'duck', 'six', 'four', 'boundary', 'balls faced', 'carrying the bat'], category: 'batting' },
-  { keywords: ['bowling', 'wicket', 'economy', 'maiden', 'hat trick', 'wides', 'noballs'], category: 'bowling' },
-  { keywords: ['catch', 'stumping', 'fielding', 'keeping', 'run out', 'dismissal'], category: 'fielding' },
   { keywords: ['partnership'], category: 'partnerships' },
-  { keywords: ['match', 'win', 'loss', 'captain', 'mvp', 'ranking', 'debut', 'serving', 'played together'], category: 'player' },
+  { keywords: ['catch', 'stumping', 'fielding', 'keeping', 'run out', 'dismissal'], category: 'fielding' },
+  { keywords: ['bowling', 'wicket', 'economy', 'maiden', 'hat trick', 'wides', 'noballs', 'bowler', 'balls bowled', 'inflicted'], category: 'bowling' },
+  { keywords: ['batting', 'run', 'score', 'hundred', 'century', 'fifty', 'duck', 'six', 'four', 'boundary', 'balls faced', 'carrying the bat'], category: 'batting' },
+  { keywords: ['captain', 'mvp', 'ranking', 'debut', 'serving', 'played together', 'match', 'win', 'loss'], category: 'player' },
   { keywords: ['innings total', 'team', 'margin', 'chase', 'extras', 'consecutive matches', 'toss'], category: 'team' },
   { keywords: ['most', 'top', 'highest', 'lowest', 'best'], category: 'milestones' },
 ];

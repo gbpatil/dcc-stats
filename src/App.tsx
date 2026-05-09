@@ -12,7 +12,7 @@ import styles from './App.module.css';
 
 function App() {
   const [activeReport, setActiveReport] = useState<Report | null>(null);
-  const [season, setSeason] = useState(2025);
+  const [season, setSeason] = useState(() => new Date().getFullYear());
   const availableSeasons = useAvailableSeasons();
   
   // Initialize with first primary report
@@ -39,11 +39,12 @@ function App() {
       />
       
       <main className={styles.main}>
-        <StatsTable 
-          data={data} 
-          report={activeReport} 
-          loading={loading} 
-          error={error} 
+        <StatsTable
+          key={activeReport?.id}
+          data={data}
+          report={activeReport}
+          loading={loading}
+          error={error}
         />
       </main>
       
