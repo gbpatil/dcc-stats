@@ -74,21 +74,12 @@
   align-items: center;
   gap: var(--spacing-sm);
   flex-wrap: wrap;
+  min-width: 0;
 }
 
 .playerName {
   font-weight: var(--font-weight-medium);
-}
-
-.needsBadge {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-accent-primary);
-  background: rgba(30, 132, 73, 0.15);
-  border: 1px solid var(--color-accent-primary);
-  border-radius: var(--radius-full);
-  padding: 1px var(--spacing-sm);
-  white-space: nowrap;
+  min-width: 0;
 }
 
 .zeroBadge {
@@ -106,9 +97,16 @@
   color: var(--color-text-secondary);
 }
 
+.matchesColumn {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
 .scoreColumn {
   font-weight: var(--font-weight-bold);
   color: var(--color-accent-secondary);
+  text-align: center;
 }
 
 /* Tablet */
@@ -127,23 +125,42 @@
   }
 }
 
-/* Mobile */
+/* Mobile: drop the lower-priority columns and let the table fit the screen so
+   #, Player, M and Underplay are all visible without horizontal scrolling. */
 @media (max-width: 480px) {
+  .hideMobile {
+    display: none;
+  }
+
+  .tableContainer {
+    overflow-x: hidden;
+  }
+
   .table {
-    font-size: 0.7rem;
+    min-width: 100%;
+    font-size: 0.8rem;
   }
 
   .table th {
-    font-size: 0.55rem;
-    padding: 4px 2px;
+    min-width: 0 !important;
+    font-size: 0.6rem;
+    padding: 6px 4px;
     letter-spacing: 0;
   }
 
   .table td {
-    padding: 4px 2px;
+    padding: 8px 4px;
   }
 
-  .needsBadge,
+  .playerName {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
   .zeroBadge {
     font-size: 0.55rem;
   }

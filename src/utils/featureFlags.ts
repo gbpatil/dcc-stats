@@ -11,17 +11,25 @@
 const STORAGE_PREFIX = 'dcc-feat-';
 
 /**
+ * True only if the feature is explicitly requested in the current URL's
+ * `?feat=<name>` param (does not consider what was remembered previously).
+ */
+export function isFeatureRequestedInUrl(name: string): boolean {
+  try {
+    const feat = new URLSearchParams(window.location.search).get('feat');
+    return feat ? feat.split(',').map((s) => s.trim()).includes(name) : false;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * True if the named feature is enabled, either via the current URL's
  * `?feat=<name>` param or because it was unlocked previously on this device.
  */
 export function isFeatureEnabled(name: string): boolean {
   try {
-    const feat = new URLSearchParams(window.location.search).get('feat');
-    const enabledFromUrl = feat
-      ? feat.split(',').map((s) => s.trim()).includes(name)
-      : false;
-
-    if (enabledFromUrl) {
+    if (isFeatureRequestedInUrl(name)) {
       localStorage.setItem(STORAGE_PREFIX + name, 'true');
       return true;
     }
