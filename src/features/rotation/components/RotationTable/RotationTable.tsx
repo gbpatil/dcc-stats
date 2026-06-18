@@ -13,7 +13,7 @@ export function RotationTable({ players }: RotationTableProps) {
           <tr>
             <th style={{ minWidth: '44px' }}>#</th>
             <th style={{ minWidth: '150px' }}>Player</th>
-            <th style={{ minWidth: '50px' }} title="Matches played this season">M</th>
+            <th style={{ minWidth: '80px' }} title="Matches played this season">Matches</th>
             <th style={{ minWidth: '90px' }} title="Underplay score (higher = fewer games)">
               Underplay
             </th>
