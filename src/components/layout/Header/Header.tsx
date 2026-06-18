@@ -1,13 +1,25 @@
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import styles from './Header.module.css';
 
+export type AppView = 'stats' | 'rotation';
+
 interface HeaderProps {
   season: number;
   onSeasonChange: (season: number) => void;
   availableSeasons: number[];
+  view: AppView;
+  onViewChange: (view: AppView) => void;
+  showRotationTab: boolean;
 }
 
-export function Header({ season, onSeasonChange, availableSeasons }: HeaderProps) {
+export function Header({
+  season,
+  onSeasonChange,
+  availableSeasons,
+  view,
+  onViewChange,
+  showRotationTab,
+}: HeaderProps) {
   return (
     <header className={styles.header}>
       <div className={styles.content}>
@@ -26,6 +38,28 @@ export function Header({ season, onSeasonChange, availableSeasons }: HeaderProps
         </div>
 
         <div className={styles.controls}>
+          {showRotationTab && (
+            <div className={styles.viewToggle} role="tablist" aria-label="View">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={view === 'stats'}
+                className={`${styles.viewButton} ${view === 'stats' ? styles.viewButtonActive : ''}`}
+                onClick={() => onViewChange('stats')}
+              >
+                📊 Stats
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={view === 'rotation'}
+                className={`${styles.viewButton} ${view === 'rotation' ? styles.viewButtonActive : ''}`}
+                onClick={() => onViewChange('rotation')}
+              >
+                🔄 Rotation
+              </button>
+            </div>
+          )}
           <div className={styles.seasonSelector}>
             <label htmlFor="season-select" className={styles.seasonLabel}>
               Season

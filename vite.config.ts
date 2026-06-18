@@ -24,6 +24,14 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      // Cricket Leinster club page — source of the monthly Player Starrings
+      // (team designations) used by the Fair Rotation feature.
+      '/cl': {
+        target: 'https://www.cricketleinster.ie',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/cl/, ''),
+      },
     },
   },
 })

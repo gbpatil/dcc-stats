@@ -1,0 +1,4 @@
+{
+  "_comment": "Maps a Player Starrings name (key) to its exact CricketStatz 'name' value, for cases where automatic name matching fails. Add entries as needed; the '_comment' key is ignored.",
+  "_example": "Starrings Name => CricketStatz Name"
+}

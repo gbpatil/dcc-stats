@@ -68,6 +68,42 @@
   gap: var(--spacing-lg);
 }
 
+.viewToggle {
+  display: inline-flex;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 2px;
+  gap: 2px;
+}
+
+.viewButton {
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  font-family: inherit;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.viewButton:hover {
+  color: var(--color-text-primary);
+}
+
+.viewButtonActive {
+  background: var(--color-accent-primary);
+  color: #fff;
+}
+
+.viewButtonActive:hover {
+  color: #fff;
+}
+
 .seasonSelector {
   display: flex;
   align-items: center;
