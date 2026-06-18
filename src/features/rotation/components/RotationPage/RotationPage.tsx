@@ -79,12 +79,6 @@ export function RotationPage({ season }: RotationPageProps) {
       ) : (
         <RotationTable players={data.players} />
       )}
-
-      <p className={styles.note}>
-        Underplay is measured by matches played this season. A reliable “days since last appearance”
-        figure isn’t available from the stats feed, so recency is not factored in — the previous
-        appearance-gap numbers were misleading and have been removed.
-      </p>
     </div>
   );
 }
