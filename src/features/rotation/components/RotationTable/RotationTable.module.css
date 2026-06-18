@@ -125,40 +125,21 @@
   }
 }
 
-/* Mobile: drop the lower-priority columns and let the table fit the screen so
-   #, Player, M and Underplay are all visible without horizontal scrolling. */
+/* Mobile: show all columns, scrolling horizontally. Matches and Underplay sit
+   right after the player name, so the key data is visible before any scroll. */
 @media (max-width: 480px) {
-  .hideMobile {
-    display: none;
-  }
-
-  .tableContainer {
-    overflow-x: hidden;
-  }
-
   .table {
-    min-width: 100%;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 
   .table th {
-    min-width: 0 !important;
-    font-size: 0.6rem;
-    padding: 6px 4px;
+    font-size: 0.55rem;
+    padding: 4px 4px;
     letter-spacing: 0;
   }
 
   .table td {
-    padding: 8px 4px;
-  }
-
-  .playerName {
-    display: inline-block;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    vertical-align: middle;
+    padding: 6px 4px;
   }
 
   .zeroBadge {

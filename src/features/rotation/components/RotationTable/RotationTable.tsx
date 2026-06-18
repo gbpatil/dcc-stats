@@ -17,10 +17,10 @@ export function RotationTable({ players }: RotationTableProps) {
             <th style={{ minWidth: '90px' }} title="Underplay score (higher = fewer games)">
               Underplay
             </th>
-            <th className={styles.hideMobile} style={{ minWidth: '70px' }} title="Player Starrings designation (team.tier)">
+            <th style={{ minWidth: '70px' }} title="Player Starrings designation (team.tier)">
               Starring
             </th>
-            <th className={styles.hideMobile} style={{ minWidth: '110px' }} title="Team last played for">
+            <th style={{ minWidth: '110px' }} title="Team last played for">
               Last team
             </th>
           </tr>
@@ -39,8 +39,8 @@ export function RotationTable({ players }: RotationTableProps) {
               </td>
               <td className={styles.matchesColumn}>{p.matches}</td>
               <td className={styles.scoreColumn}>{p.score.toFixed(2)}</td>
-              <td className={`${styles.tierCell} ${styles.hideMobile}`}>{p.starringCode ?? '–'}</td>
-              <td className={styles.hideMobile}>{p.lastTeam || '–'}</td>
+              <td className={styles.tierCell}>{p.starringCode ?? '–'}</td>
+              <td>{p.lastTeam || '–'}</td>
             </tr>
           ))}
         </tbody>
