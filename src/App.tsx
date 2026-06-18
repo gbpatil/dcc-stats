@@ -10,16 +10,14 @@ import {
 import type { Report } from '@/features/stats';
 import { RotationPage } from '@/features/rotation';
 import type { AppView } from '@/components';
-import { isFeatureEnabled, isFeatureRequestedInUrl } from '@/utils';
+import { isFeatureEnabled } from '@/utils';
 import styles from './App.module.css';
 
 function App() {
-  // Rotation tab is hidden unless unlocked via ?feat=rotation (remembered per device).
+  // Rotation tab is shown only while ?feat=rotation is present in the URL.
   const [rotationEnabled] = useState(() => isFeatureEnabled('rotation'));
-  // Land on the rotation tab when the feature is explicitly requested in the URL.
-  const [view, setView] = useState<AppView>(() =>
-    isFeatureRequestedInUrl('rotation') ? 'rotation' : 'stats',
-  );
+  // Land on the rotation tab when the feature is requested in the URL.
+  const [view, setView] = useState<AppView>(() => (rotationEnabled ? 'rotation' : 'stats'));
   const [activeReport, setActiveReport] = useState<Report | null>(null);
   const [season, setSeason] = useState(() => new Date().getFullYear());
   const availableSeasons = useAvailableSeasons();

@@ -1,1 +1,1 @@
-export { isFeatureEnabled, isFeatureRequestedInUrl } from './featureFlags';
+export { isFeatureEnabled } from './featureFlags';
