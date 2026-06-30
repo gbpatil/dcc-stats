@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import type { Report, ReportCategory } from '../../types';
 import {
   getAllReportsByCategory,
+  getAllReports,
   CATEGORY_INFO,
 } from '../../services';
 import styles from './TabNavigation.module.css';
@@ -32,6 +33,11 @@ export function TabNavigation({ activeReport, onReportChange }: TabNavigationPro
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const mobileDropdownRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Global search across all reports
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchOpen, setSearchOpen] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
   
   // Mobile detection
   const isMobile = useIsMobile(768);
@@ -53,11 +59,28 @@ export function TabNavigation({ activeReport, onReportChange }: TabNavigationPro
   const activeCategory = activeReport?.category || 'batting';
   const filteredReports = allByCategory[activeCategory] || [];
 
-  // Close dropdown when clicking outside
+  // Search results across ALL reports (capped to keep the dropdown manageable).
+  // Match on individual words so multi-word queries work regardless of order or
+  // punctuation in the title — e.g. "all round" matches "Top All-Rounders".
+  const trimmedQuery = searchQuery.trim();
+  const searchTerms = trimmedQuery.toLowerCase().split(/\s+/).filter(Boolean);
+  const searchResults = searchTerms.length
+    ? getAllReports()
+        .filter((report) => {
+          const title = report.title.toLowerCase();
+          return searchTerms.every((term) => title.includes(term));
+        })
+        .slice(0, 50)
+    : [];
+
+  // Close dropdowns when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (mobileDropdownRef.current && !mobileDropdownRef.current.contains(event.target as Node)) {
         setMobileDropdownOpen(false);
+      }
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setSearchOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -177,11 +200,91 @@ export function TabNavigation({ activeReport, onReportChange }: TabNavigationPro
     setMobileDropdownOpen(false);
   };
 
+  const handleSearchSelect = (report: Report) => {
+    onReportChange(report);
+    setSearchQuery('');
+    setSearchOpen(false);
+    setMobileDropdownOpen(false);
+  };
+
+  // Shared search bar (rendered in both desktop and mobile layouts)
+  const searchBar = (
+    <div className={styles.searchWrapper} ref={searchRef}>
+      <div className={styles.searchInputWrapper}>
+        <span className={styles.searchIcon} aria-hidden="true">🔍</span>
+        <input
+          type="text"
+          className={styles.searchInput}
+          placeholder="Search all stats…"
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            setSearchOpen(true);
+          }}
+          onFocus={() => {
+            if (searchQuery.trim()) setSearchOpen(true);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') {
+              setSearchQuery('');
+              setSearchOpen(false);
+            }
+          }}
+          aria-label="Search stats"
+        />
+        {searchQuery && (
+          <button
+            className={styles.searchClear}
+            onClick={() => {
+              setSearchQuery('');
+              setSearchOpen(false);
+            }}
+            aria-label="Clear search"
+          >
+            ✕
+          </button>
+        )}
+      </div>
+
+      {searchOpen && trimmedQuery && (
+        <div className={styles.searchResults} role="listbox">
+          {searchResults.length === 0 ? (
+            <div className={styles.searchEmpty}>
+              No stats match “{searchQuery.trim()}”
+            </div>
+          ) : (
+            searchResults.map((report) => (
+              <button
+                key={report.id}
+                className={`${styles.searchResultItem} ${
+                  activeReport?.id === report.id ? styles.active : ''
+                }`}
+                onClick={() => handleSearchSelect(report)}
+                title={report.title}
+                role="option"
+                aria-selected={activeReport?.id === report.id}
+              >
+                <span className={styles.searchResultIcon}>{report.icon}</span>
+                <span className={styles.searchResultLabel}>{report.title}</span>
+                <span className={styles.searchResultCategory}>
+                  {CATEGORY_INFO[report.category]?.label || report.category}
+                </span>
+              </button>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  );
+
   // Mobile view: Two-level category navigation
   if (isMobile) {
     return (
       <nav className={styles.navigation}>
         <div className={styles.mobileNavWrapper}>
+          {/* Global search */}
+          {searchBar}
+
           {/* Level 1: Category chips - horizontally scrollable */}
           <div className={styles.categoryChipsContainer}>
             <div className={styles.categoryChipsScroll}>
@@ -261,6 +364,9 @@ export function TabNavigation({ activeReport, onReportChange }: TabNavigationPro
   return (
     <nav className={styles.navigation}>
       <div className={styles.desktopNavWrapper}>
+        {/* Global search */}
+        {searchBar}
+
         {/* Level 1: Category chips */}
         <div className={styles.desktopCategoryChips}>
           {categoryEntries.map(([category]) => (
