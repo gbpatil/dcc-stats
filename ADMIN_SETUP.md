@@ -61,7 +61,7 @@ match the client-side rule.
 ## 4. Set up Brevo
 
 1. Create an account at https://www.brevo.com.
-2. **Senders, Domains & Dedicated IPs → Senders →** add `patil.govind@gmail.com`
+2. **Senders, Domains & Dedicated IPs → Senders →** add `<your-admin-email>`
    and click the verification link Brevo emails you. This becomes the "from".
 3. **SMTP & API → SMTP tab:** note the **SMTP login** (looks like
    `xxxxxxx@smtp-brevo.com`) and the **SMTP key / master password**. → used in step 5.
@@ -74,7 +74,7 @@ In **Project → Settings → Authentication → SMTP Settings**, enable custom 
 
 | Field | Value |
 | --- | --- |
-| Sender email | `patil.govind@gmail.com` (verified in step 4) |
+| Sender email | `<your-admin-email>` (verified in step 4) |
 | Sender name | `Dundalk Cricket Club` |
 | Host | `smtp-relay.brevo.com` |
 | Port | `587` |
@@ -93,9 +93,9 @@ WEBHOOK_SECRET=$(openssl rand -hex 32)
 
 supabase secrets set \
   BREVO_API_KEY='<your Brevo v3 API key>' \
-  BREVO_SENDER_EMAIL='patil.govind@gmail.com' \
+  BREVO_SENDER_EMAIL='<your-admin-email>' \
   BREVO_SENDER_NAME='Dundalk Cricket Club' \
-  ADMIN_EMAIL='patil.govind@gmail.com' \
+  ADMIN_EMAIL='<your-admin-email>' \
   SITE_URL='https://<your-gh-username>.github.io/dcc-stats/' \
   WEBHOOK_SECRET="$WEBHOOK_SECRET"
 
@@ -111,19 +111,22 @@ The function URLs are `https://<ref>.supabase.co/functions/v1/notify-admin` and
 ## 7. Create the Database Webhooks
 
 In **Database → Webhooks**, create **two** webhooks. For each: table
-`public.profiles`, event **Update**, type **Supabase Edge Functions** (pick the
-function), and under **HTTP Headers** add:
+`public.profiles`, type **Supabase Edge Functions** (pick the function), and
+under **HTTP Headers** add:
 
-```
+```text
 x-webhook-secret: <the WEBHOOK_SECRET from step 6>
 ```
 
-| Webhook | Calls |
-| --- | --- |
-| `notify-admin` | the `notify-admin` function |
-| `notify-user` | the `notify-user` function |
+| Webhook | Events | Calls |
+| --- | --- | --- |
+| `notify-admin` | **Insert, Update** | the `notify-admin` function |
+| `notify-user` | **Update** | the `notify-user` function |
 
-(Each function checks the row's status, so it's safe for both to fire on any update.)
+`notify-admin` also listens on **Insert**: auto-confirmed, OAuth, or
+admin-created users get a profile row inserted already in `pending_approval`
+(no Update ever fires for them). Each function guards on the status transition,
+so firing on both events never double-sends.
 
 ## 8. Wire up the frontend env
 
@@ -142,13 +145,13 @@ add repository secrets `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
 The first superadmin can't be approved through the UI (no superadmin exists yet),
 so bootstrap manually:
 
-1. Run the app, sign up as `patil.govind@gmail.com`, and click the email
+1. Run the app, sign up as `<your-admin-email>`, and click the email
    confirmation link.
 2. In the Supabase **SQL Editor**, run:
    ```sql
    update public.profiles
      set role = 'superadmin', status = 'approved'
-     where email = 'patil.govind@gmail.com';
+     where email = '<your-admin-email>';
    ```
 3. Sign in — you now see **Review signups** in the admin nav.
 
@@ -156,12 +159,12 @@ so bootstrap manually:
 
 ## 10. Test the full flow
 
-Run locally: `npm run dev`, then open `http://localhost:5173/?feat=admin`
-(the `?feat=admin` flag reveals the **Sign in** entry — see "Going live" below).
+Run locally: `npm run dev`, then open `http://localhost:5173/`. The **Sign in**
+entry is shown by default (see "Going live" below).
 
 1. **Sign up** a second test user → confirmation email arrives.
 2. **Confirm** → in Supabase, `profiles.status` becomes `pending_approval`.
-3. The **admin email** arrives at `patil.govind@gmail.com` with a review link.
+3. The **admin email** arrives at `<your-admin-email>` with a review link.
    (If not: check **Edge Functions → Logs** and **Database → Webhooks** delivery
    logs, and **Brevo → Transactional → Logs**.)
 4. Open the link, sign in as superadmin, **Approve** → user gets a success email

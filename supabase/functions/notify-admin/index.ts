@@ -28,9 +28,12 @@ Deno.serve(async (req) => {
   const record = payload.record;
   const previous = payload.old_record;
 
-  // Act only on the specific transition into pending_approval (idempotent).
+  // Act only on the transition into pending_approval (idempotent). This happens
+  // via UPDATE for the normal email-confirmation flow, or via INSERT when a
+  // profile is created already in pending_approval (auto-confirmed, OAuth, or
+  // admin-created users). Requires the webhook to fire on Insert + Update.
   const becamePending =
-    payload.type === "UPDATE" &&
+    (payload.type === "UPDATE" || payload.type === "INSERT") &&
     record?.status === "pending_approval" &&
     previous?.status !== "pending_approval";
 

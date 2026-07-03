@@ -18,5 +18,7 @@ export function humanizeAuthError(message: string): string {
     // Password-policy messages are safe and useful to surface verbatim.
     return message;
   }
-  return message || 'Something went wrong. Please try again.';
+  // Don't surface raw GoTrue/Supabase text for unmatched cases — it can carry
+  // internal detail. Known, safe messages are handled explicitly above.
+  return 'Something went wrong. Please try again.';
 }

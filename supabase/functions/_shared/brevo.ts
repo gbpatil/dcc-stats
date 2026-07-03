@@ -27,22 +27,31 @@ export async function sendEmail(params: SendEmailParams): Promise<void> {
     );
   }
 
-  const response = await fetch(BREVO_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "api-key": apiKey,
-      "content-type": "application/json",
-      accept: "application/json",
-    },
-    body: JSON.stringify({
-      sender: { email: senderEmail, name: senderName },
-      to: [params.to],
-      replyTo: params.replyTo,
-      subject: params.subject,
-      htmlContent: params.html,
-      textContent: params.text,
-    }),
-  });
+  let response: Response;
+  try {
+    response = await fetch(BREVO_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "api-key": apiKey,
+        "content-type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({
+        sender: { email: senderEmail, name: senderName },
+        to: [params.to],
+        replyTo: params.replyTo,
+        subject: params.subject,
+        htmlContent: params.html,
+        textContent: params.text,
+      }),
+      // Fail fast instead of hanging until the Edge Function's 60s hard limit.
+      signal: AbortSignal.timeout(10_000),
+    });
+  } catch (error) {
+    // Covers network errors and the AbortSignal.timeout firing (TimeoutError).
+    const reason = error instanceof Error ? error.message : String(error);
+    throw new Error(`Brevo request failed or timed out: ${reason}`);
+  }
 
   if (!response.ok) {
     const detail = await response.text();

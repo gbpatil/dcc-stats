@@ -311,7 +311,7 @@
 
 .requestValue {
   color: var(--color-text-primary);
-  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .requestActions {

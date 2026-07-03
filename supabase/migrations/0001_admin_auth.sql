@@ -24,7 +24,7 @@ create table if not exists public.profiles (
   created_at    timestamptz not null default now(),
   updated_at    timestamptz not null default now(),
   reviewed_at   timestamptz,
-  reviewed_by   uuid references auth.users (id)
+  reviewed_by   uuid references auth.users (id) on delete set null
 );
 
 comment on table public.profiles is
@@ -190,5 +190,5 @@ grant execute on function public.review_signup(uuid, text) to authenticated;
 --
 --   update public.profiles
 --     set role = 'superadmin', status = 'approved'
---     where email = 'patil.govind@gmail.com';
+--     where email = '<your-admin-email>';
 -- ----------------------------------------------------------------------------

@@ -31,10 +31,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isSupabaseConfigured) return;
     let active = true;
+    // getSession() and onAuthStateChange() can resolve out of order. Tag each
+    // call so a slow profile fetch from a superseded session can't clobber a
+    // newer one (e.g. restore a stale profile right after sign-out).
+    let latestRequest = 0;
 
     // All state updates happen inside async/subscription callbacks (never
     // synchronously in the effect body) to avoid cascading renders.
     const applySession = async (nextSession: Session | null) => {
+      const requestId = ++latestRequest;
       setSession(nextSession);
       const id = nextSession?.user?.id;
       if (!id) {
@@ -44,7 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       setProfileLoading(true);
       const nextProfile = await fetchProfile(id);
-      if (!active) return;
+      if (!active || requestId !== latestRequest) return;
       setProfile(nextProfile);
       setProfileLoading(false);
     };
@@ -106,8 +111,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   const signOut = useCallback(async () => {
-    await supabase.auth.signOut();
-    setProfile(null);
+    // Best-effort: always clear local state even if the network call fails, so
+    // the app reflects a signed-out state rather than getting stuck.
+    try {
+      await supabase.auth.signOut();
+    } catch (error) {
+      console.error('Sign out failed:', error);
+    } finally {
+      setProfile(null);
+    }
   }, []);
 
   const value = useMemo<AuthContextValue>(
