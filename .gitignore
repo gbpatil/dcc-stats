@@ -12,6 +12,15 @@ dist
 dist-ssr
 *.local
 
+# Local environment files (keep .env.example tracked)
+.env
+.env.*
+!.env.example
+
+# Supabase CLI local state
+supabase/.temp
+supabase/.branches
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -1,4 +1,5 @@
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { AuthMenu } from '@/features/auth/components/AuthMenu';
 import styles from './Header.module.css';
 
 export type AppView = 'stats' | 'rotation';
@@ -78,6 +79,7 @@ export function Header({
             </select>
           </div>
           <ThemeToggle />
+          <AuthMenu />
         </div>
       </div>
 
