@@ -1,0 +1,12 @@
+# Supabase CLI config. `project_id` is a local label; the remote project is
+# bound with `supabase link --project-ref <ref>`.
+project_id = "dcc-stats"
+
+# These functions are invoked by Database Webhooks (server-to-server), not by
+# end users, so JWT verification is off. They authenticate the caller instead
+# via a shared WEBHOOK_SECRET header (enforced in code).
+[functions.notify-admin]
+verify_jwt = false
+
+[functions.notify-user]
+verify_jwt = false

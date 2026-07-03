@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Header, Footer } from '@/components';
 import {
   TabNavigation,
@@ -18,17 +18,12 @@ function App() {
   const [rotationEnabled] = useState(() => isFeatureEnabled('rotation'));
   // Land on the rotation tab when the feature is requested in the URL.
   const [view, setView] = useState<AppView>(() => (rotationEnabled ? 'rotation' : 'stats'));
-  const [activeReport, setActiveReport] = useState<Report | null>(null);
+  // Start on the first primary report (computed once, lazily).
+  const [activeReport, setActiveReport] = useState<Report | null>(
+    () => getPrimaryReports()[0] ?? null,
+  );
   const [season, setSeason] = useState(() => new Date().getFullYear());
   const availableSeasons = useAvailableSeasons();
-  
-  // Initialize with first primary report
-  useEffect(() => {
-    const primaryReports = getPrimaryReports();
-    if (primaryReports.length > 0 && !activeReport) {
-      setActiveReport(primaryReports[0]);
-    }
-  }, [activeReport]);
 
   const { data, loading, error } = useReportData(activeReport, season);
 
