@@ -5,3 +5,4 @@ export type { AppView } from './layout';
 // UI Components
 export { Spinner } from './ui';
 export { ThemeToggle } from './ui';
+export { InstallPrompt } from './ui';
