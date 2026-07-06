@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import App from './App';
+import { InstallPrompt } from '@/components';
 import { isAuthRedirect } from '@/lib/supabaseClient';
 import { ConfirmPage, LoginPage, ProtectedRoute, SignupPage, SuperAdminRoute } from '@/features/auth';
 import {
@@ -69,6 +70,9 @@ export function AppRouter() {
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+
+      {/* Home-screen install prompt (Android button / iOS Share-sheet hint). */}
+      <InstallPrompt />
     </>
   );
 }

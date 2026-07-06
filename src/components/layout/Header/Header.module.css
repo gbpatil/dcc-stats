@@ -219,6 +219,12 @@
     padding: var(--spacing-sm) var(--spacing-md);
   }
 
+  /* Tighten the season / theme / auth row so the season <select> has room to
+     shrink and the non-shrinking auth button stays fully on-screen. */
+  .controls {
+    gap: var(--spacing-sm);
+  }
+
   .logo {
     flex-direction: column;
     text-align: center;

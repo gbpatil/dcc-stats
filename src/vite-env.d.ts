@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+/// <reference types="vite-plugin-pwa/client" />
 
 // Strongly-typed environment variables (augments Vite's ImportMetaEnv).
 // These are PUBLIC, client-safe values — data is protected by Supabase RLS.
