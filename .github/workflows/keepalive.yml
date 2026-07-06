@@ -20,10 +20,12 @@ jobs:
             echo "Supabase secrets not set; skipping keep-alive."
             exit 0
           fi
-          # Hit the PostgREST root (not a table) so the anon key is enough — every
-          # app table is RLS-protected and not readable by anon. This still
-          # exercises the API/DB layer, which is what keeps the project awake.
-          curl -fsS "${SUPABASE_URL}/rest/v1/" \
+          # Query a real (RLS-protected) table so the request reaches Postgres —
+          # that DB hit is what resets the project's inactivity timer. The anon
+          # key can't read the rows (RLS), so this returns an empty result: a
+          # 200, unlike the bare /rest/v1/ root which 401s the newer
+          # sb_publishable_ key format.
+          curl -fsS "${SUPABASE_URL}/rest/v1/profiles?select=id&limit=1" \
             -H "apikey: ${SUPABASE_ANON_KEY}" \
             -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" > /dev/null
           echo "Supabase pinged successfully."
