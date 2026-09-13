@@ -7,15 +7,35 @@ import { corsFetch } from '@/lib/corsFetch';
 //
 // The starrings are published monthly as server-rendered HTML on the club page
 // (no API). Each player is listed with a "X.Y" code where the first digit is the
-// team number and the second is the rank within that team. We fetch the page and
-// extract those codes. Dev uses a Vite proxy; production must go through a
-// public CORS bridge, because unlike CricketStatz this page sends no
-// `Access-Control-Allow-Origin` header (see src/lib/corsFetch.ts).
+// team number and the second is the tier within that team. We fetch the page and
+// extract those codes.
+//
+// This page sends no `Access-Control-Allow-Origin` header, so the browser can
+// never read it directly. Dev uses the Vite `/cl` proxy. Production prefers our
+// own `cl-starrings` Supabase Edge Function, because the public CORS bridges
+// proved unreliable for this origin (codetabs 522s consistently; allorigins
+// succeeds about one attempt in three and takes ~20s to fail, returning a
+// CORS-header-less error page that the browser reports as an opaque CORS
+// failure). The bridges stay as a fallback for when Supabase is unconfigured.
 
 const STARRINGS_PAGE = 'https://www.cricketleinster.ie/clubs/dundalk';
 
 /**
- * Fetch the club page HTML, going through the dev proxy or the prod CORS bridge.
+ * Our own proxy for the club page, if Supabase is configured for this build.
+ * Returns an empty list when it is not, leaving only the public bridges.
+ */
+function preferredProxies(): Array<(url: string) => string> {
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  if (!supabaseUrl) return [];
+  const endpoint = `${supabaseUrl.replace(/\/$/, '')}/functions/v1/cl-starrings`;
+  // The endpoint ignores its input entirely (the target is hardcoded server
+  // side), so the target URL is discarded here rather than passed along.
+  return [() => endpoint];
+}
+
+/**
+ * Fetch the club page HTML via the dev proxy, or in production via our Edge
+ * Function with the public bridges as a fallback.
  */
 async function fetchStarringsHtml(): Promise<string> {
   if (import.meta.env.DEV) {
@@ -27,8 +47,11 @@ async function fetchStarringsHtml(): Promise<string> {
   }
 
   // skipDirect: this origin is known to send no CORS headers, so a direct
-  // request would always be blocked — go straight to the bridges.
-  const response = await corsFetch(STARRINGS_PAGE, { skipDirect: true });
+  // request would always be blocked — go straight to the proxies.
+  const response = await corsFetch(STARRINGS_PAGE, {
+    skipDirect: true,
+    preferredProxies: preferredProxies(),
+  });
   return response.text();
 }
 

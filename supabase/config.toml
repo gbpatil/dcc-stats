@@ -10,3 +10,10 @@ verify_jwt = false
 
 [functions.notify-user]
 verify_jwt = false
+
+# cl-starrings is called from the browser by the public Starrings view, which
+# anonymous visitors can reach, so JWT verification is off. It is safe to expose:
+# the target URL is hardcoded (no request input reaches it), so it can only ever
+# return one public web page.
+[functions.cl-starrings]
+verify_jwt = false
