@@ -6,6 +6,7 @@ const SECTIONS = [
   { to: '/admin/analytics', icon: '📈', title: 'Advanced Analytics', text: 'Internal stats and trends.' },
   { to: '/admin/players', icon: '🧑', title: 'Player Management', text: 'Profiles, contacts, availability.' },
   { to: '/admin/selection', icon: '📋', title: 'Selection & Match-day', text: 'Team selection and planning.' },
+  { to: '/admin/rotation', icon: '🔄', title: 'Fair Rotation', text: 'See who is underplayed this season.' },
   { to: '/admin/data', icon: '🗂️', title: 'Data & Content', text: 'Curate reports and announcements.' },
 ];
 

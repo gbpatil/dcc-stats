@@ -4,5 +4,6 @@ export { AdminHome } from './pages/AdminHome';
 export { AnalyticsPage } from './pages/AnalyticsPage';
 export { PlayerManagementPage } from './pages/PlayerManagementPage';
 export { SelectionPage } from './pages/SelectionPage';
+export { TeamRotationPage } from './pages/TeamRotationPage';
 export { DataManagementPage } from './pages/DataManagementPage';
 export { ReviewSignupsPage } from './pages/ReviewSignupsPage';

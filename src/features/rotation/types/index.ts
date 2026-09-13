@@ -7,19 +7,9 @@
 // needs game time and should be rotated in. The Cricket Leinster "Player
 // Starrings" provide each player's team designation (Team 1/2/3) for context.
 
-// A single entry parsed from the Cricket Leinster "Player Starrings" section.
-// The published code is "X.Y" where X = team number and Y = rank/tier within it.
-export interface StarringEntry {
-  name: string;
-  team: number; // 1, 2 or 3
-  tier: number; // the ".Y" rank within the team
-  code: string; // e.g. "2.1"
-}
-
-export interface StarringsResult {
-  month: string; // e.g. "June 2026" (display label), or '' if not found
-  entries: StarringEntry[];
-}
+// The starrings themselves are owned by the starrings feature; rotation only
+// consumes them to annotate players with their designation.
+export type { StarringEntry, StarringsResult } from '@/features/starrings';
 
 // A club player enriched with their starring designation and an underplay score.
 export interface RotationPlayer {

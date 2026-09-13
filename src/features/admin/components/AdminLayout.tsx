@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { to: '/admin/analytics', label: 'Analytics', icon: '📈', end: false },
   { to: '/admin/players', label: 'Players', icon: '🧑', end: false },
   { to: '/admin/selection', label: 'Selection', icon: '📋', end: false },
+  { to: '/admin/rotation', label: 'Rotation', icon: '🔄', end: false },
   { to: '/admin/data', label: 'Data', icon: '🗂️', end: false },
 ];
 

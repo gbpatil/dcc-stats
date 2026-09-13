@@ -1,7 +1,7 @@
 import { fetchReportData } from '@/features/stats';
 import type { StatsRow } from '@/features/stats';
 import type { RotationData, RotationPlayer } from '../types';
-import { fetchStarrings } from './starringsService';
+import { fetchStarrings } from '@/features/starrings';
 import nameOverrides from './name_overrides.json';
 
 // ============================================

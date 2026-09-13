@@ -198,8 +198,16 @@
     height: 50px;
   }
 
+  /* The view toggle is always present now (Stats/Starrings), so the control row
+     must wrap instead of overflowing; the toggle takes its own line above the
+     season / theme / auth row. */
   .controls {
     justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .viewToggle {
+    order: -1;
   }
 
   .seasonSelector {
@@ -223,6 +231,17 @@
      shrink and the non-shrinking auth button stays fully on-screen. */
   .controls {
     gap: var(--spacing-sm);
+  }
+
+  /* Let the view tabs share the full width rather than pushing the row wide. */
+  .viewToggle {
+    width: 100%;
+  }
+
+  .viewButton {
+    flex: 1;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    white-space: nowrap;
   }
 
   .logo {
