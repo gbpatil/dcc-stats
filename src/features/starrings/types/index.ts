@@ -18,6 +18,12 @@ export interface StarringEntry {
 export interface StarringsResult {
   month: string; // e.g. "September 2026" (display label), or '' if not found
   entries: StarringEntry[];
+  /**
+   * ISO timestamp of when the source page was actually read, present only on
+   * the build-time snapshot. This is the honest "as of" for the data — the
+   * moment the browser downloaded the snapshot says nothing about its age.
+   */
+  generatedAt?: string;
 }
 
 /** One tier within a team, holding every player sharing that code. */

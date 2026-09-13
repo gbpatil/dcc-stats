@@ -41,11 +41,17 @@ export default defineConfig({
       },
       workbox: {
         cleanupOutdatedCaches: true,
+        // The default globPatterns omit .json, which would leave
+        // public/starrings.json — the Player Starrings snapshot, and the primary
+        // source for that view — un-precached and therefore unavailable offline.
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
         runtimeCaching: [
           {
-            // Player Starrings requests, whether they go to our Edge Function or
-            // a public bridge (the target URL is only percent-encoded into the
-            // bridge's query string, so "cricketleinster" still appears in it).
+            // Live Player Starrings fallback requests, whether they go to our
+            // Edge Function or a public bridge (the target URL is only
+            // percent-encoded into the bridge's query string, so
+            // "cricketleinster" still appears in it). Only reached when the
+            // precached starrings.json snapshot is missing.
             // NetworkOnly because the starrings keep their own localStorage
             // cache with a stale fallback; letting Workbox handle them instead
             // produced noisy uncaught "no-response" rejections whenever a bridge

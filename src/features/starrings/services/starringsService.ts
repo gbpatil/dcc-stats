@@ -1,24 +1,65 @@
-import type { StarringEntry, StarringsResult } from '../types';
+import type { StarringsResult } from '../types';
 import { corsFetch } from '@/lib/corsFetch';
+import { parseStarrings } from './starringsParser';
 
 // ============================================
-// Starrings Service - fetches & parses the Cricket Leinster "Player Starrings"
+// Starrings Service - loads the Cricket Leinster "Player Starrings"
 // ============================================
 //
-// The starrings are published monthly as server-rendered HTML on the club page
-// (no API). Each player is listed with a "X.Y" code where the first digit is the
-// team number and the second is the tier within that team. We fetch the page and
-// extract those codes.
+// Cricket Leinster publishes the starrings as server-rendered HTML on the club
+// page (no API) and sends no `Access-Control-Allow-Origin` header, so a browser
+// can never read that page directly. Every runtime workaround we have tried has
+// eventually failed: corsproxy.io carried this page in production until it
+// dropped anonymous access (403), and its replacements are no better —
+// api.codetabs.com currently 522s on *every* target, and api.allorigins.win
+// works generally but times out (~20s) specifically on cricketleinster.ie,
+// returning a CORS-header-less error page the browser reports as an opaque CORS
+// failure.
 //
-// This page sends no `Access-Control-Allow-Origin` header, so the browser can
-// never read it directly. Dev uses the Vite `/cl` proxy. Production prefers our
-// own `cl-starrings` Supabase Edge Function, because the public CORS bridges
-// proved unreliable for this origin (codetabs 522s consistently; allorigins
-// succeeds about one attempt in three and takes ~20s to fail, returning a
-// CORS-header-less error page that the browser reports as an opaque CORS
-// failure). The bridges stay as a fallback for when Supabase is unconfigured.
+// So we stopped fetching this page from the browser at all. The starrings change
+// once a month; `scripts/fetch-starrings.ts` snapshots and parses them during
+// the deploy build and ships the result as `starrings.json` next to the app.
+// Loading it is a plain same-origin request, which no third party can break and
+// CORS never applies to. The live-fetch chain below survives only as a fallback
+// for when the snapshot is missing.
+//
+// This ordering also means dev and production finally exercise the same primary
+// path. Previously dev went through the Vite `/cl` proxy and production went
+// through a public bridge, so local testing could not surface a broken bridge.
 
 const STARRINGS_PAGE = 'https://www.cricketleinster.ie/clubs/dundalk';
+
+/** The build-time snapshot, served from our own origin (so: no CORS, ever). */
+const SNAPSHOT_URL = `${import.meta.env.BASE_URL}starrings.json`;
+
+interface StarringsSnapshot {
+  generatedAt?: string;
+  month?: string;
+  entries?: unknown;
+}
+
+/**
+ * Load the snapshot shipped with the build. Returns null (rather than throwing)
+ * whenever it is absent or unusable, so the caller can fall through to a live
+ * fetch — a stale deploy should degrade, not break the page.
+ */
+async function fetchSnapshot(): Promise<StarringsResult | null> {
+  try {
+    const response = await fetch(SNAPSHOT_URL);
+    if (!response.ok) return null;
+    const snapshot: StarringsSnapshot = await response.json();
+    // A missing file can come back as the host's 404 page with a 200, so check
+    // the shape rather than trusting the status.
+    if (!Array.isArray(snapshot.entries) || snapshot.entries.length === 0) return null;
+    return {
+      month: typeof snapshot.month === 'string' ? snapshot.month : '',
+      entries: snapshot.entries as StarringsResult['entries'],
+      generatedAt: snapshot.generatedAt,
+    };
+  } catch {
+    return null;
+  }
+}
 
 /**
  * Our own proxy for the club page, if Supabase is configured for this build.
@@ -34,8 +75,9 @@ function preferredProxies(): Array<(url: string) => string> {
 }
 
 /**
- * Fetch the club page HTML via the dev proxy, or in production via our Edge
- * Function with the public bridges as a fallback.
+ * Fetch the club page HTML live: via the Vite proxy in dev, or in production via
+ * our Edge Function with the public bridges behind it. Only reached when the
+ * build-time snapshot is unavailable.
  */
 async function fetchStarringsHtml(): Promise<string> {
   if (import.meta.env.DEV) {
@@ -56,69 +98,15 @@ async function fetchStarringsHtml(): Promise<string> {
 }
 
 /**
- * Extract the month label (e.g. "June 2026") from a "Player Starrings : June 2026"
- * heading, if present.
- */
-function extractMonth(text: string): string {
-  const match = text.match(/Player Starrings\s*:?\s*([A-Z][a-z]+\s+\d{4})/);
-  return match ? match[1] : '';
-}
-
-/**
- * Parse starring entries out of the page text. The data renders as plain text
- * like "Dundalk 2 Player Name 2.1"; we scope parsing to the region between the
- * "Player Starrings :" heading and the following "About" section, then pull out
- * every "Name X.Y" pattern, deriving the team from X and the tier from Y.
- * Defensive by design — the source markup can change, so we dedupe by name and
- * accept only teams 1–3. Names may be lower- or upper-case; the digits in the
- * "Dundalk N" group headers naturally prevent those headers being captured as
- * part of a player name (the name character class excludes digits).
- */
-export function parseStarrings(html: string): StarringsResult {
-  // Strip tags into a whitespace-normalised text stream. Insert spaces for tag
-  // boundaries so adjacent list items don't run together.
-  const text = html
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  const month = extractMonth(text);
-
-  // Anchor to the "Player Starrings :" data heading (skips the page-nav link of
-  // the same name) and bound the end at the "About" section that follows the
-  // team lists, so stray "X.Y" numbers elsewhere on the page can't match.
-  let start = text.search(/Player Starrings\s*:/i);
-  if (start < 0) start = text.search(/Player Starrings/i);
-  let region = start >= 0 ? text.slice(start) : text;
-  const aboutIdx = region.search(/\bAbout\b/);
-  if (aboutIdx > 0) region = region.slice(0, aboutIdx);
-
-  // Name tokens (letters/spaces/apostrophes/dots/hyphens, no digits) followed by
-  // a "X.Y" code. Lazy name match anchors each entry to its trailing code.
-  const entryRe = /([A-Za-z][A-Za-z'’.\- ]*?)\s+([1-3])\.(\d+)\b/g;
-
-  const seen = new Set<string>();
-  const entries: StarringEntry[] = [];
-  let m: RegExpExecArray | null;
-  while ((m = entryRe.exec(region)) !== null) {
-    const name = m[1].trim();
-    const team = Number(m[2]);
-    const tier = Number(m[3]);
-    const key = name.toLowerCase();
-    if (seen.has(key)) continue;
-    seen.add(key);
-    entries.push({ name, team, tier, code: `${team}.${tier}` });
-  }
-
-  return { month, entries };
-}
-
-/**
- * Fetch and parse the current Player Starrings.
+ * Load the current Player Starrings: the build-time snapshot when present,
+ * otherwise a live fetch and parse of the club page.
  */
 export async function fetchStarrings(): Promise<StarringsResult> {
+  const snapshot = await fetchSnapshot();
+  if (snapshot) return snapshot;
+
   const html = await fetchStarringsHtml();
   return parseStarrings(html);
 }
+
+export { parseStarrings };
