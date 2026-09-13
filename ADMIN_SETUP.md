@@ -103,10 +103,39 @@ echo "WEBHOOK_SECRET = $WEBHOOK_SECRET"   # copy this for step 7
 
 supabase functions deploy notify-admin
 supabase functions deploy notify-user
+supabase functions deploy cl-starrings
 ```
 
 The function URLs are `https://<ref>.supabase.co/functions/v1/notify-admin` and
 `.../notify-user`.
+
+### `cl-starrings` (no secrets, no webhook)
+
+`cl-starrings` is unrelated to email — it is the CORS bridge for the public
+**Starrings** view. cricketleinster.ie sends no `Access-Control-Allow-Origin`
+header, so the browser cannot read it directly, and the public bridges we used
+instead were unreliable for that host (codetabs returns Cloudflare 522
+consistently; allorigins succeeds roughly one attempt in three and takes ~20s to
+fail). This function fetches the page server-side and returns it with CORS
+headers.
+
+It needs **no secrets and no webhook** — just the deploy above. It runs with
+`verify_jwt = false` (see `supabase/config.toml`) because anonymous visitors use
+it. That is safe here: the target URL is hardcoded in the function and no part of
+the request influences it, so it cannot be used as an open proxy — the only thing
+it can ever return is one public web page.
+
+Verify it with:
+
+```bash
+curl -sS -o /dev/null -w '%{http_code}\n' \
+  "https://<ref>.supabase.co/functions/v1/cl-starrings"
+```
+
+A `200` means the Starrings tab will work. A `502` means Supabase's servers could
+not reach cricketleinster.ie, and the app will fall back to the public bridges.
+If the frontend is deployed without `VITE_SUPABASE_URL`, it skips this function
+entirely and uses only those bridges.
 
 ## 7. Create the Database Webhooks
 

@@ -41,7 +41,25 @@ export default defineConfig({
       },
       workbox: {
         cleanupOutdatedCaches: true,
+        // The default globPatterns omit .json, which would leave
+        // public/starrings.json — the Player Starrings snapshot, and the primary
+        // source for that view — un-precached and therefore unavailable offline.
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
         runtimeCaching: [
+          {
+            // Live Player Starrings fallback requests, whether they go to our
+            // Edge Function or a public bridge (the target URL is only
+            // percent-encoded into the bridge's query string, so
+            // "cricketleinster" still appears in it). Only reached when the
+            // precached starrings.json snapshot is missing.
+            // NetworkOnly because the starrings keep their own localStorage
+            // cache with a stale fallback; letting Workbox handle them instead
+            // produced noisy uncaught "no-response" rejections whenever a bridge
+            // failed. Must precede the report-data rule, which also matches the
+            // bridge hosts — Workbox uses the first matching route.
+            urlPattern: /cricketleinster/i,
+            handler: 'NetworkOnly',
+          },
           {
             // Cricket report JSON. Production fetches www2.cricketstatz.com
             // directly (it sends `Access-Control-Allow-Origin: *`) and falls

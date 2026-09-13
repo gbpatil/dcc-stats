@@ -4,6 +4,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # Weekly rebuild purely to refresh the Player Starrings snapshot below. The
+  # starrings are published monthly, so a weekly build keeps them current
+  # without anyone pushing. Note `schedule` only fires from the default branch.
+  schedule:
+    - cron: '0 6 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -30,6 +35,15 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      # Snapshots cricketleinster.ie into public/starrings.json so the browser
+      # reads the starrings same-origin instead of via a third-party CORS bridge.
+      # Best effort: that site is reachable from some datacenter IPs and not
+      # others, and a failure here must not block a deploy. When it fails, the
+      # snapshot committed to the repo ships instead — older starrings, not none.
+      - name: Refresh Player Starrings snapshot
+        continue-on-error: true
+        run: npm run fetch-starrings
 
       - name: Build
         run: npm run build

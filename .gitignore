@@ -21,6 +21,12 @@ dist-ssr
 supabase/.temp
 supabase/.branches
 
+# Claude Code local state. `.claude/worktrees/` holds checked-out worktrees in
+# the main clone, so ignore the directory and opt the shared dev-server config
+# back in rather than tracking it wholesale.
+.claude/*
+!.claude/launch.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
