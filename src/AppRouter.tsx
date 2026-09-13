@@ -12,6 +12,7 @@ import {
   PlayerManagementPage,
   ReviewSignupsPage,
   SelectionPage,
+  TeamRotationPage,
 } from '@/features/admin';
 
 /**
@@ -49,6 +50,7 @@ export function AppRouter() {
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="players" element={<PlayerManagementPage />} />
           <Route path="selection" element={<SelectionPage />} />
+          <Route path="rotation" element={<TeamRotationPage />} />
           <Route path="data" element={<DataManagementPage />} />
           <Route
             path="review"

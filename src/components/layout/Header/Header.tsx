@@ -2,7 +2,7 @@ import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { AuthMenu } from '@/features/auth/components/AuthMenu';
 import styles from './Header.module.css';
 
-export type AppView = 'stats' | 'rotation';
+export type AppView = 'stats' | 'starrings';
 
 interface HeaderProps {
   season: number;
@@ -10,7 +10,6 @@ interface HeaderProps {
   availableSeasons: number[];
   view: AppView;
   onViewChange: (view: AppView) => void;
-  showRotationTab: boolean;
 }
 
 export function Header({
@@ -19,7 +18,6 @@ export function Header({
   availableSeasons,
   view,
   onViewChange,
-  showRotationTab,
 }: HeaderProps) {
   return (
     <header className={styles.header}>
@@ -39,28 +37,26 @@ export function Header({
         </div>
 
         <div className={styles.controls}>
-          {showRotationTab && (
-            <div className={styles.viewToggle} role="tablist" aria-label="View">
-              <button
-                type="button"
-                role="tab"
-                aria-selected={view === 'stats'}
-                className={`${styles.viewButton} ${view === 'stats' ? styles.viewButtonActive : ''}`}
-                onClick={() => onViewChange('stats')}
-              >
-                📊 Stats
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={view === 'rotation'}
-                className={`${styles.viewButton} ${view === 'rotation' ? styles.viewButtonActive : ''}`}
-                onClick={() => onViewChange('rotation')}
-              >
-                🔄 Rotation
-              </button>
-            </div>
-          )}
+          <div className={styles.viewToggle} role="tablist" aria-label="View">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={view === 'stats'}
+              className={`${styles.viewButton} ${view === 'stats' ? styles.viewButtonActive : ''}`}
+              onClick={() => onViewChange('stats')}
+            >
+              📊 Stats
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={view === 'starrings'}
+              className={`${styles.viewButton} ${view === 'starrings' ? styles.viewButtonActive : ''}`}
+              onClick={() => onViewChange('starrings')}
+            >
+              ⭐ Starrings
+            </button>
+          </div>
           <div className={styles.seasonSelector}>
             <label htmlFor="season-select" className={styles.seasonLabel}>
               Season

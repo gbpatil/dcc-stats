@@ -5,12 +5,7 @@ export { RotationPage, RotationTable } from './components';
 export { useRotationData } from './hooks';
 
 // Services
-export { fetchStarrings, parseStarrings, buildRotationData } from './services';
+export { buildRotationData } from './services';
 
 // Types
-export type {
-  StarringEntry,
-  StarringsResult,
-  RotationPlayer,
-  RotationData,
-} from './types';
+export type { RotationPlayer, RotationData } from './types';

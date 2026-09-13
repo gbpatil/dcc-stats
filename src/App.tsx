@@ -8,16 +8,12 @@ import {
   getPrimaryReports,
 } from '@/features/stats';
 import type { Report } from '@/features/stats';
-import { RotationPage } from '@/features/rotation';
+import { StarringsPage } from '@/features/starrings';
 import type { AppView } from '@/components';
-import { isFeatureEnabled } from '@/utils';
 import styles from './App.module.css';
 
 function App() {
-  // Rotation tab is shown only while ?feat=rotation is present in the URL.
-  const [rotationEnabled] = useState(() => isFeatureEnabled('rotation'));
-  // Land on the rotation tab when the feature is requested in the URL.
-  const [view, setView] = useState<AppView>(() => (rotationEnabled ? 'rotation' : 'stats'));
+  const [view, setView] = useState<AppView>('stats');
   // Start on the first primary report (computed once, lazily).
   const [activeReport, setActiveReport] = useState<Report | null>(
     () => getPrimaryReports()[0] ?? null,
@@ -27,21 +23,17 @@ function App() {
 
   const { data, loading, error } = useReportData(activeReport, season);
 
-  // Never land on the rotation view unless the feature is unlocked.
-  const effectiveView: AppView = rotationEnabled ? view : 'stats';
-
   return (
     <div className={styles.app}>
       <Header
         season={season}
         onSeasonChange={setSeason}
         availableSeasons={availableSeasons}
-        view={effectiveView}
+        view={view}
         onViewChange={setView}
-        showRotationTab={rotationEnabled}
       />
 
-      {effectiveView === 'stats' ? (
+      {view === 'stats' && (
         <>
           <TabNavigation
             activeReport={activeReport}
@@ -58,9 +50,11 @@ function App() {
             />
           </main>
         </>
-      ) : (
+      )}
+
+      {view === 'starrings' && (
         <main className={styles.main}>
-          <RotationPage season={season} />
+          <StarringsPage />
         </main>
       )}
 

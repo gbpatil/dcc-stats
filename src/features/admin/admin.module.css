@@ -202,6 +202,8 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
+  /* Lets a trailing control (e.g. the season picker) drop to its own line. */
+  flex-wrap: wrap;
 }
 
 .pageIcon {
@@ -219,6 +221,41 @@
   color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
   margin-top: 2px;
+}
+
+/* Season picker for admin pages that need one (the admin shell has no global
+   season control, unlike the public header). Pushed to the trailing edge of
+   .pageHeader so it sits opposite the title. */
+.seasonField {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-left: auto;
+}
+
+.seasonLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.seasonSelect {
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .seasonField {
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
 .placeholderPanel {
