@@ -43,9 +43,12 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         runtimeCaching: [
           {
-            // Cricket report JSON (prod fetches through the corsproxy.io bridge).
-            // Network-first so an installed app shows the last-seen stats offline.
-            urlPattern: /^https:\/\/corsproxy\.io\/.*/i,
+            // Cricket report JSON. Production fetches www2.cricketstatz.com
+            // directly (it sends `Access-Control-Allow-Origin: *`) and falls
+            // back to public CORS bridges — match all of them so the installed
+            // app still shows the last-seen stats offline.
+            urlPattern:
+              /^https:\/\/(www2\.cricketstatz\.com|api\.allorigins\.win|api\.codetabs\.com)\/.*/i,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'report-data',

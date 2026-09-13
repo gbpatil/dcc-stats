@@ -1,4 +1,5 @@
 import type { StarringEntry, StarringsResult } from '../types';
+import { corsFetch } from '@/lib/corsFetch';
 
 // ============================================
 // Starrings Service - fetches & parses the Cricket Leinster "Player Starrings"
@@ -7,8 +8,9 @@ import type { StarringEntry, StarringsResult } from '../types';
 // The starrings are published monthly as server-rendered HTML on the club page
 // (no API). Each player is listed with a "X.Y" code where the first digit is the
 // team number and the second is the rank within that team. We fetch the page and
-// extract those codes. As with reportService, dev uses a Vite proxy and
-// production uses corsproxy.io to bypass CORS.
+// extract those codes. Dev uses a Vite proxy; production must go through a
+// public CORS bridge, because unlike CricketStatz this page sends no
+// `Access-Control-Allow-Origin` header (see src/lib/corsFetch.ts).
 
 const STARRINGS_PAGE = 'https://www.cricketleinster.ie/clubs/dundalk';
 
@@ -16,14 +18,17 @@ const STARRINGS_PAGE = 'https://www.cricketleinster.ie/clubs/dundalk';
  * Fetch the club page HTML, going through the dev proxy or the prod CORS bridge.
  */
 async function fetchStarringsHtml(): Promise<string> {
-  const finalUrl = import.meta.env.DEV
-    ? '/cl/clubs/dundalk'
-    : `https://corsproxy.io/?${encodeURIComponent(STARRINGS_PAGE)}`;
-
-  const response = await fetch(finalUrl);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch Player Starrings: ${response.statusText}`);
+  if (import.meta.env.DEV) {
+    const response = await fetch('/cl/clubs/dundalk');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch Player Starrings: ${response.statusText}`);
+    }
+    return response.text();
   }
+
+  // skipDirect: this origin is known to send no CORS headers, so a direct
+  // request would always be blocked — go straight to the bridges.
+  const response = await corsFetch(STARRINGS_PAGE, { skipDirect: true });
   return response.text();
 }
 
