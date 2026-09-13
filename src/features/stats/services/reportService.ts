@@ -1,5 +1,6 @@
 import type { Report, ReportCategory, ReportLinksData } from '../types';
 import reportLinksData from '@/api/report_links.json';
+import { corsFetch } from '@/lib/corsFetch';
 
 // ============================================
 // Report Service - Manages report links and data fetching
@@ -216,25 +217,19 @@ export async function fetchReportData<T = unknown>(url: string, season?: number)
     fetchUrl = url.replace(/season=\d+/, `season=${season}`);
   }
 
-  // In development, use Vite proxy (relative URL)
-  // In production, use CORS proxy to bypass CORS restrictions
-  const isDev = import.meta.env.DEV;
-  
-  let finalUrl: string;
-  if (isDev) {
-    // Use Vite proxy in development
-    finalUrl = fetchUrl.replace('https://www2.cricketstatz.com', '');
-  } else {
-    // Use CORS proxy in production (GitHub Pages)
-    finalUrl = `https://corsproxy.io/?${encodeURIComponent(fetchUrl)}`;
+  // Development goes through the Vite proxy (relative URL); production fetches
+  // CricketStatz directly, since it serves `Access-Control-Allow-Origin: *`.
+  // corsFetch falls back to a public CORS bridge if that ever stops being true.
+  if (import.meta.env.DEV) {
+    const devUrl = fetchUrl.replace('https://www2.cricketstatz.com', '');
+    const devResponse = await fetch(devUrl);
+    if (!devResponse.ok) {
+      throw new Error(`Failed to fetch data: ${devResponse.statusText}`);
+    }
+    return devResponse.json();
   }
-  
-  const response = await fetch(finalUrl);
-  
-  if (!response.ok) {
-    throw new Error(`Failed to fetch data: ${response.statusText}`);
-  }
-  
+
+  const response = await corsFetch(fetchUrl);
   return response.json();
 }
 
